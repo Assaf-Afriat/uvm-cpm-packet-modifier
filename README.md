@@ -3,6 +3,10 @@
 
 # UVM Final Project - CPM (Configurable Packet Modifier) Verification
 
+## ▶ Live Project Demo
+🔗 Interactive HTML demo:
+https://assaf-afriat.github.io/uvm-cpm-packet-modifier/deliverables/project_demo.html
+
 ## Project Overview
 
 This project implements a comprehensive UVM verification environment for the **CPM (Configurable Packet Modifier)** design.

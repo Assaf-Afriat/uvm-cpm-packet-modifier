@@ -9,6 +9,7 @@ vsim.wlf
 *.ucdb
 *.wlf
 transcript
+/docs/archive/
 
 # Python
 __pycache__/

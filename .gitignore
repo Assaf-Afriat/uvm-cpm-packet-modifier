@@ -2,7 +2,8 @@
 work/
 sim/
 logs/
-coverage/
+/coverage/
+!/verification/coverage/
 regress/logs/
 vsim.wlf
 *.ucdb

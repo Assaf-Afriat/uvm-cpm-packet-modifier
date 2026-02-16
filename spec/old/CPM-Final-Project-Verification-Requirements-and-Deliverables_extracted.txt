@@ -1,0 +1,219 @@
+Extracted from: CPM-Final-Project-Verification-Requirements-and-Deliverables.pdf
+================================================================================
+
+
+================================================================================
+Page 1
+================================================================================
+
+CPM Final Project - Verification Requirements &
+Deliverables
+
+================================================================================
+Page 2
+================================================================================
+
+OBJECTIVE
+Build and close a UVM-based verification environment for the
+CPM DUT.
+The expected workflow is:
+1 2
+Requirements Architecture
+3 4
+Stimulus Checking
+5 6
+Coverage Closure
+Verification of the control/register bus protocol is out of scope (assume it works).
+
+================================================================================
+Page 3
+================================================================================
+
+CONTROL MODEL (MANDATORY RULE)
+This project enforces a strict separation of
+responsibilities:
+Test Virtual Sequence Leaf Sequences
+chooses scenario + configures the orchestrates execution generate stimulus only
+environment
+Violations (examples):
+• Test drives transactions directly
+• Driver raises objections
+• Leaf sequences perform configuration/checking → considered architectural errors.
+
+================================================================================
+Page 4
+================================================================================
+
+Rules:
+No direct DUT signal Configuration and knobs All components must be
+access from tests must go via factory-registered
+uvm_config_db
+
+================================================================================
+Page 5
+================================================================================
+
+REQUIRED SEQUENCES
+Minimum required sequences (names may vary, roles
+must match):
+Sequence Purpose
+config_seq (RAL-based) Program CTRL/MODE/PARAMS/DROP via RAL
+base_traffic_seq Random packet stimulus
+stress_seq Burst traffic to cause stalls/backpressure
+drop_seq Force opcode matching drop configuration
+top_virtual_seq Full scenario orchestration
+
+================================================================================
+Page 6
+================================================================================
+
+You must implement at least one main test that:
+01 02 03
+Selects the virtual sequence to run Sets configuration knobs (counts, Applies factory overrides (see
+mode schedule, stress level) Section 6)
+04 05
+Starts the virtual sequence Ends cleanly (no hangs)
+Recommended: a single cpm_base_test that can be configured via plusargs / config knobs.
+
+================================================================================
+Page 7
+================================================================================
+
+MANDATORY UVM MECHANISMS (MUST DEMONSTRATE)
+6.1 RAL (Mandatory)
+Implement a CPM register model (matches the DUT spec).
+Integrate:
+• uvm_reg_adapter
+• uvm_reg_predictor
+Run at least:
+• uvm_reg_hw_reset_seq
+• one custom RAL configuration sequence
+Rules:
+• Do not access registers by writing bus transactions directly from tests
+• Register programming must be done via RAL API (reg.write/read/mirror/update)
+
+================================================================================
+Page 8
+================================================================================
+
+6.2 Virtual Sequence (Mandatory)
+Complete System Flow Orchestration
+Your top_virtual_seq must orchestrate a complete system flow:
+1 2
+Reset Configure
+3 4
+Traffic Reconfigure
+5 6
+Stress Drop
+7 8
+Readback End
+Requirements:
+• Raise/drop objections only at the test or top virtual sequence level
+• Reconfigure MODE during runtime and confirm behavior follows "sampled at input accept time"
+
+================================================================================
+Page 9
+================================================================================
+
+6.3 Factory Override (Mandatory)
+You must demonstrate one meaningful factory override, for example:
+Override base_traffic_seq → coverage_traffic_seq (forces rare MODE/opcode combinations or drop event)
+Rule:
+Override is applied in the test (selecting behavior), not scattered across components.
+
+================================================================================
+Page 10
+================================================================================
+
+6.4 Callbacks (Mandatory)
+Implement at least one callback mechanism (choose one):
+Driver callback Monitor callback Scoreboard callback
+that can modify outgoing transactions used for event counting or tagging for additional reporting (less
+recommended)
+The callback must have a real reason (not a dummy print).
+
+================================================================================
+Page 11
+================================================================================
+
+6.5 Functional Coverage (Mandatory)
+Must include:
+Coverpoint: MODE
+Coverpoint: OPCODE
+Cross: MODE × OPCODE
+Drop event coverage (at least one bin)
+Stall/backpressure event coverage (at least one bin)
+Coverage must be collected in UVM (subscriber recommended).
+
+================================================================================
+Page 12
+================================================================================
+
+6.6 SVA (Mandatory)
+Assertions must be written in the stream interface (not inside UVM classes).
+Required properties:
+1 2
+Input stability under stall Output stability under stall
+If in_valid && !in_ready → input fields stable If out_valid && !out_ready → output fields stable
+3 4
+Bounded liveness One meaningful cover property
+If an input packet is accepted and not dropped, an output must Examples: a stall event, or mode=ADD exercised, or drop event
+appear within the bound (bound must be consistent with CPM observed
+spec: base latency ≤2 cycles when out_ready stays high; allow
+additional slack due to buffering/backpressure logic)
+
+================================================================================
+Page 13
+================================================================================
+
+SCOREBOARD REQUIREMENTS
+The scoreboard must:
+Core Functions End-of-test checks:
+• Maintain an expected queue of outputs • Counter invariant: COUNT_OUT + DROPPED_COUNT ==
+• Use a reference model: COUNT_IN
+◦ apply transformation based on MODE/PARAMS sampled at • No leftover expected items (queue empty)
+input acceptance
+◦ handle drop rule (no expected output)
+• Compare to observed outputs
+• Provide actionable mismatch reporting (expected vs actual +
+context)
+
+================================================================================
+Page 14
+================================================================================
+
+CLOSURE CRITERIA (DEFINITION OF "DONE")
+A submission is considered closed only when:
+All tests pass (no runtime hangs)
+Scoreboard reports 0 mismatches
+All assertions pass (no failures)
+Functional coverage targets are achieved (see below)
+RAL reset sequence passes cleanly
+End-of-test invariants are checked and pass
+Recommended targets:
+100% 90% 80%
+MODE coverage OPCODE coverage MODE×OPCODE cross
+Drop bin: hit at least once Stall bin: hit at least once
+
+================================================================================
+Page 15
+================================================================================
+
+DELIVERABLES
+Submit a single ZIP containing:
+Full source code A Verification Plan Coverage report
+(UVM TB + assertions + RAL code) (see separate template) (screenshot or text summary)
+Assertion report Reflection Report
+(tool output summary) Challenges, limitations, future work
+Professional requirement: Organize code using packages.
+
+================================================================================
+Page 16
+================================================================================
+
+COMMON RULES (NON-NEGOTIABLE)
+Non-Negotiable Rules
+No direct DUT signal access No bus-level register access No objections inside
+from tests from tests (use RAL) driver/monitor
+Tests configure what, virtual sequence controls how Keep the project slim: do not invent extra DUT
+features

@@ -1,0 +1,29 @@
+Coverage Type,Coverage Item,Current (%),Target (%),Status,Notes,Last Updated
+Functional,MODE Coverage,100.00,100,MET,All 4 modes hit: PASS/XOR/ADD/ROT,2026-02-07
+Functional,OPCODE Coverage,100.00,90,MET,All 16 opcodes hit,2026-02-07
+Functional,MODE × OPCODE Cross,100.00,80,MET,64/64 bins covered,2026-02-07
+Functional,Drop Event Coverage,50.00,Hit Once,MET,drop_hit and no_drop bins both hit,2026-02-07
+Functional,Stall/Backpressure Coverage,50.00,Hit Once,MET,stall_hit and no_stall bins both hit,2026-02-07
+Functional,cg_packet Overall,100.00,80,EXCEEDS,All packet coverage bins hit,2026-02-07
+Functional,cg_register Overall,75.00,75,MET,Register coverage achieved,2026-02-07
+Register,Register Addresses,100.00,100,MET,All 8 addresses accessed,2026-02-07
+Register,Read Operations,100.00,100,MET,All readable registers read via RAL,2026-02-07
+Register,Write Operations,100.00,100,MET,All writable registers written via RAL,2026-02-07
+Register,Address × Operation Cross,75.00,75,MET,Cross coverage achieved,2026-02-07
+SVA,Input Stability Under Stall,100.00,100,MET,Assertion passed (0 failures),2026-02-07
+SVA,Output Stability Under Stall,100.00,100,MET,Assertion passed (0 failures) - RTL v1.1 fixed,2026-02-07
+SVA,Bounded Liveness,100.00,100,MET,Assertion passed (0 failures) - drop awareness working,2026-02-07
+SVA,Cover Properties Hit,100.00,100,MET,All 4 cover properties observed,2026-02-07
+SVA,Total Assertions,100.00,100,MET,4/4 assertions passed,2026-02-07
+Code,DUT Statements,100.00,95,EXCEEDS,All DUT statements executed,2026-02-07
+Code,DUT Branches,95.55,90,EXCEEDS,Most branches taken,2026-02-07
+Code,DUT Expressions,100.00,90,EXCEEDS,All expressions evaluated,2026-02-07
+Code,DUT Conditions,88.88,80,EXCEEDS,Conditions covered,2026-02-07
+Code,DUT Toggles,58.62,50,EXCEEDS,Toggle coverage acceptable,2026-02-07
+Code,DUT Total,88.61,85,EXCEEDS,Overall DUT code coverage,2026-02-07
+RAL,Register Model,100.00,100,MET,All 8 registers in model,2026-02-07
+RAL,Reset Sequence,100.00,100,MET,uvm_reg_hw_reset_seq passed,2026-02-07
+RAL,Config Sequence,100.00,100,MET,CpmConfigSeq executed,2026-02-07
+RAL,Adapter,100.00,100,MET,CpmRegAdapter implemented,2026-02-07
+RAL,Predictor,100.00,100,MET,uvm_reg_predictor connected,2026-02-07
+Callback,Packet Statistics Callback,100.00,Required,MET,CpmPacketStatsCb registered and functional,2026-02-07

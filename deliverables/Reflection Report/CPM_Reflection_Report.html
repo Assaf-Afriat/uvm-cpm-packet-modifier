@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflection Report: CPM Verification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+            font-size: 11pt;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 5px;
+            color: #1a1a1a;
+        }
+
+        .meta {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #666;
+        }
+
+        h2 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        ol, ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Reflection Report: CPM Verification</h1>
+<div class="meta">
+    <strong>Student:</strong> Assaf Afriat<br>
+    <strong>Date:</strong> February 7, 2026
+</div>
+
+<hr>
+
+<h2>1. Executive Summary</h2>
+
+<p>The objective of this project was to verify a Configurable Packet Modifier (CPM) against Design Specification v1.1. We developed a comprehensive UVM testbench utilizing a dual-agent architecture (Packet Agent, Register Agent), RAL integration, reference model, and functional coverage. The verification environment achieved 100% functional coverage on all mode and opcode combinations while processing over 500 packets across multiple test scenarios. The verification process uncovered two RTL bugs in version 1.0 (COUNT_OUT increment on out_valid instead of out_fire, output instability during backpressure), both of which were fixed in RTL v1.1. The environment also identified and documented 10+ specification ambiguities that required clarification.</p>
+
+<h2>2. Expectations vs. Reality</h2>
+
+<p>Based on the Design Specification, we expected a compliant packet processor that correctly transforms payloads based on 4 modes (PASS, XOR, ADD, ROT), maintains strict FIFO ordering, handles backpressure gracefully, and preserves the counter invariant COUNT_IN == COUNT_OUT + DROPPED_COUNT.</p>
+
+<p><strong>What We Found (The Reality):</strong> The verification environment exposed several deviations and ambiguities:</p>
+
+<ol>
+    <li><strong>COUNT_OUT Increment Bug:</strong> The DUT incremented COUNT_OUT on <code>out_valid</code> instead of <code>out_fire</code>, causing multiple counts per packet during backpressure (RTL Bug - Fixed in v1.1).</li>
+    <li><strong>Output Stability Violation:</strong> Output signals changed while <code>out_valid=1</code> and <code>out_ready=0</code>, violating the stall stability rule (RTL Bug - Fixed in v1.1).</li>
+    <li><strong>ROT_AMT Undefined:</strong> Specification mentioned ROT_AMT parameter but never defined its value. Clarified in v1.1 as fixed at 4 bits.</li>
+    <li><strong>Counter Invariant Timing:</strong> Specification said "when stable" but didn't define the condition. Clarified in v1.1: invariant holds when STATUS.BUSY=0.</li>
+    <li><strong>Ordering vs. Latency Ambiguity:</strong> Spec stated "no reordering" but different modes have different latencies. Resolved: DUT maintains FIFO regardless of mode latency.</li>
+    <li><strong>ENABLE Deassertion Behavior:</strong> What happens to in-flight packets when ENABLE goes low? RTL flushes pipeline (implementation-defined).</li>
+    <li><strong>Counter Overflow:</strong> 32-bit counter wrap behavior undefined. RTL uses standard wrap-around.</li>
+    <li><strong>SOFT_RST Scope:</strong> Unclear if soft reset flushes pipeline. Spec v1.1 clarified: clears counters and internal state.</li>
+    <li><strong>in_ready When Disabled:</strong> Spec didn't specify in_ready value when ENABLE=0. RTL correctly deasserts in_ready.</li>
+</ol>
+
+<h2>3. Verification Challenge: The "Configuration Timing" Problem</h2>
+
+<p><strong>The Concept:</strong> The most significant intellectual challenge was verifying that packet transformations used the <em>correct</em> configuration. When MODE or PARAMS registers change during traffic, which configuration applies to each packet?</p>
+
+<p><strong>The Insight:</strong> A naive implementation would read the RAL mirror at scoreboard prediction time. This caused false mismatches when configuration changed between packet acceptance and output comparison. With high traffic (1000+ packets), packets with identical ID+OPCODE but different configurations were mis-matched.</p>
+
+<p><strong>The Strategy:</strong> We implemented "configuration capture at acceptance time" - the monitor reads MODE, MASK, and ADD_CONST from the RAL mirror the instant each packet is accepted (<code>in_fire</code>) and stores these values in the transaction. The reference model then uses these captured values, not the current mirror, for prediction.</p>
+
+<p><strong>The Lesson:</strong> This highlighted that verification of pipelined designs requires tracking <em>when</em> configuration was sampled, not just <em>what</em> the configuration is. The verification engineer must think in terms of packet lifetimes, not instantaneous state.</p>
+
+<h2>4. Future Testing Opportunities</h2>
+
+<p>To further harden the design and ensure silicon readiness, we recommend expanding the testbench to include:</p>
+
+<ul>
+    <li><strong>Pipeline Stress Testing:</strong> Rapidly toggling ENABLE while packets are in-flight to verify no data corruption occurs during flush.</li>
+    <li><strong>Soft Reset During Traffic:</strong> Asserting SOFT_RST while the pipeline is full to verify clean state recovery and counter reset.</li>
+    <li><strong>Counter Overflow Verification:</strong> Running extended simulations (4B+ packets) to verify 32-bit counter wrap-around behavior.</li>
+    <li><strong>Mode Switching Under Load:</strong> Changing MODE register every clock cycle while sustaining maximum throughput to stress the configuration sampling logic.</li>
+    <li><strong>Invalid Register Access:</strong> Writing to read-only registers and reading from undefined addresses to verify no side effects.</li>
+    <li><strong>Boundary Value Testing:</strong> Testing edge cases like MASK=0xFFFF, ADD_CONST=0xFFFF, and payload values at boundaries.</li>
+</ul>
+
+<h2>5. Final Assessment</h2>
+
+<p>The verification environment proved to be highly effective. It achieved 100% coverage of MODE, OPCODE, and their cross-product while detecting two critical RTL bugs that would have caused counter corruption and protocol violations in a real system. The separation of the Scoreboard (data integrity), Reference Model (transformation correctness), and SVA Assertions (protocol compliance) was crucial in isolating distinct failure types. The RAL integration enabled portable, maintainable test sequences, while the callback mechanism provided runtime statistics without modifying core components. The comprehensive bug tracking process documented 12 issues, all of which were resolved through specification clarification or RTL fixes.</p>
+
+</body>
+</html>

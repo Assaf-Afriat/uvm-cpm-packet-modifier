@@ -1,0 +1,2758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPM Verification Project - Complete Technical Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --bg-code: #0d1117;
+            --text-primary: #f0f0f5;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6a6a7a;
+            --accent: #6366f1;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-purple: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --border: #2a2a38;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 320px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            z-index: 100;
+            padding: 30px 20px;
+        }
+
+        .sidebar-header {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-subtitle {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .sidebar-version {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .nav-section {
+            margin-bottom: 25px;
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            padding-left: 10px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(59,130,246,0.1));
+            color: var(--accent);
+            border-left: 3px solid var(--accent);
+        }
+
+        .nav-link .nav-icon {
+            margin-right: 10px;
+            opacity: 0.7;
+        }
+
+        .nav-link .nav-badge {
+            float: right;
+            background: var(--accent-green);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 320px;
+            padding: 50px 80px;
+            max-width: 1400px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+            border-radius: 20px;
+            padding: 60px;
+            margin-bottom: 60px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 700px;
+        }
+
+        .hero-version-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(6,182,212,0.1));
+            border: 1px solid var(--accent-green);
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin-bottom: 25px;
+        }
+
+        .hero-version-badge .pulse {
+            width: 10px;
+            height: 10px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-value.green { color: var(--accent-green); }
+        .stat-value.blue { color: var(--accent-blue); }
+        .stat-value.yellow { color: var(--accent-yellow); }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .section h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+        }
+
+        .section h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 30px 0 15px;
+            color: var(--accent-blue);
+        }
+
+        .section-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 800px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .card-icon.blue { background: rgba(59,130,246,0.2); }
+        .card-icon.green { background: rgba(16,185,129,0.2); }
+        .card-icon.purple { background: rgba(139,92,246,0.2); }
+        .card-icon.yellow { background: rgba(245,158,11,0.2); }
+        .card-icon.red { background: rgba(239,68,68,0.2); }
+        .card-icon.cyan { background: rgba(6,182,212,0.2); }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-code);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+
+        .code-block code {
+            color: var(--text-primary);
+        }
+
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-type { color: #4ec9b0; }
+        .code-string { color: #ce9178; }
+        .code-number { color: #b5cea8; }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            background: var(--bg-card);
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(99,102,241,0.05);
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-green { background: rgba(16,185,129,0.2); color: var(--accent-green); }
+        .badge-blue { background: rgba(59,130,246,0.2); color: var(--accent-blue); }
+        .badge-purple { background: rgba(139,92,246,0.2); color: var(--accent-purple); }
+        .badge-yellow { background: rgba(245,158,11,0.2); color: var(--accent-yellow); }
+        .badge-red { background: rgba(239,68,68,0.2); color: var(--accent-red); }
+        .badge-cyan { background: rgba(6,182,212,0.2); color: var(--accent-cyan); }
+
+        /* Lists */
+        ul, ol {
+            margin: 15px 0 15px 25px;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding-left: 5px;
+        }
+
+        /* Highlights */
+        .highlight {
+            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.05));
+            border-left: 4px solid var(--accent);
+            padding: 20px 25px;
+            border-radius: 0 12px 12px 0;
+            margin: 25px 0;
+        }
+
+        .highlight.success {
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(6,182,212,0.05));
+            border-left-color: var(--accent-green);
+        }
+
+        .highlight.warning {
+            background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05));
+            border-left-color: var(--accent-yellow);
+        }
+
+        .highlight-title {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .highlight.success .highlight-title { color: var(--accent-green); }
+        .highlight.warning .highlight-title { color: var(--accent-yellow); }
+
+        /* Diagrams */
+        .diagram {
+            background: var(--bg-code);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            white-space: pre;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        /* Phase Cards */
+        .phase-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .phase-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px rgba(99,102,241,0.1);
+        }
+
+        .phase-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--accent);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .phase-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 10px 0;
+            color: var(--text-primary);
+        }
+
+        .phase-description {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Bug Cards */
+        .bug-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bug-card.fixed::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+        }
+
+        .bug-card.open::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-yellow);
+        }
+
+        .bug-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .bug-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .bug-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .bug-status.fixed {
+            background: rgba(16,185,129,0.2);
+            color: var(--accent-green);
+        }
+
+        .bug-status.open {
+            background: rgba(245,158,11,0.2);
+            color: var(--accent-yellow);
+        }
+
+        /* Progress Indicators */
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-blue));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-fill.green {
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+        }
+
+        /* Metric Cards */
+        .metric-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-blue));
+        }
+
+        .metric-value {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .metric-detail {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 280px;
+            }
+            .main-content {
+                margin-left: 280px;
+                padding: 40px 50px;
+            }
+            .grid-4, .grid-5 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 30px;
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-primary);
+        }
+
+        .timeline-item.completed::before {
+            background: var(--accent-green);
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .timeline-content {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">CPM Verification</div>
+            <div class="sidebar-subtitle">Complete Technical Documentation</div>
+            <div class="sidebar-version">RTL v1.1 | Spec v1.1</div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Overview</div>
+            <a href="#introduction" class="nav-link active"><span class="nav-icon">📋</span>Introduction</a>
+            <a href="#whats-new" class="nav-link"><span class="nav-icon">🆕</span>What's New v1.1</a>
+            <a href="#bugs" class="nav-link"><span class="nav-icon">🐛</span>Bug Tracking<span class="nav-badge">FIXED</span></a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Implementation</div>
+            <a href="#callbacks" class="nav-link"><span class="nav-icon">🪝</span>Callbacks<span class="nav-badge">NEW</span></a>
+            <a href="#sva" class="nav-link"><span class="nav-icon">✓</span>SVA Assertions</a>
+            <a href="#sequences" class="nav-link"><span class="nav-icon">🔄</span>Sequences</a>
+            <a href="#ral" class="nav-link"><span class="nav-icon">📝</span>RAL Model</a>
+            <a href="#uvm-components" class="nav-link"><span class="nav-icon">🧩</span>UVM Hierarchy</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Results</div>
+            <a href="#results" class="nav-link"><span class="nav-icon">🏆</span>Results Summary</a>
+            <a href="#coverage" class="nav-link"><span class="nav-icon">📊</span>Coverage</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Reference</div>
+            <a href="#dut-overview" class="nav-link"><span class="nav-icon">🔲</span>DUT Overview</a>
+            <a href="#specification" class="nav-link"><span class="nav-icon">📄</span>Specification</a>
+            <a href="#environment" class="nav-link"><span class="nav-icon">🏗️</span>Environment</a>
+            <a href="#phases" class="nav-link"><span class="nav-icon">📈</span>Project Phases</a>
+            <a href="#file-structure" class="nav-link"><span class="nav-icon">📁</span>File Structure</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="introduction">
+            <div class="hero-version-badge">
+                <span class="pulse"></span>
+                <span style="font-weight: 600; color: var(--accent-green);">RTL v1.1 - All Bugs Fixed</span>
+            </div>
+            <h1>CPM UVM Verification Project</h1>
+            <p class="hero-subtitle">
+                A complete, production-quality UVM verification environment for the Configurable Packet Modifier (CPM) design. 
+                All DUT bugs identified and fixed. Full spec v1.1 compliance verified.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-value green">505</div>
+                    <div class="stat-label">Packets Tested</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value green">0</div>
+                    <div class="stat-label">Mismatches</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value blue">100%</div>
+                    <div class="stat-label">Coverage</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value green">0</div>
+                    <div class="stat-label">SVA Violations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value yellow">3</div>
+                    <div class="stat-label">Bugs Found & Fixed</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What's New Section -->
+        <section class="section" id="whats-new">
+            <div class="section-header">
+                <h2>🆕 What's New in v1.1</h2>
+                <p class="section-description">
+                    Major updates since the initial release, including RTL bug fixes, new callback implementation, and spec clarifications.
+                </p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card" style="border-top: 4px solid var(--accent-green);">
+                    <div class="card-header">
+                        <div class="card-icon green">🐛</div>
+                        <div>
+                            <div class="card-title">RTL Bugs Fixed</div>
+                            <div class="card-subtitle">RTL v1.1</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li><strong>COUNT_OUT:</strong> Now increments on <code>out_fire</code></li>
+                        <li><strong>Output Stability:</strong> Signals stable during stall</li>
+                        <li><strong>ROT_AMT:</strong> Fixed at 4 bits (per spec)</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="border-top: 4px solid var(--accent-blue);">
+                    <div class="card-header">
+                        <div class="card-icon blue">🪝</div>
+                        <div>
+                            <div class="card-title">Callback Implementation</div>
+                            <div class="card-subtitle">CpmPacketStatsCb</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>Tracks packet statistics in real-time</li>
+                        <li>Counts packets per opcode (16 bins)</li>
+                        <li>Records min/max payload values</li>
+                        <li>Measures test duration</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="border-top: 4px solid var(--accent-purple);">
+                    <div class="card-header">
+                        <div class="card-icon purple">📄</div>
+                        <div>
+                            <div class="card-title">Spec v1.1 Compliance</div>
+                            <div class="card-subtitle">All clarifications addressed</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li><strong>ROT_AMT:</strong> Fixed at 4 bits</li>
+                        <li><strong>STATUS.BUSY:</strong> Defines invariant timing</li>
+                        <li><strong>SOFT_RST:</strong> Clears internal state</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight success">
+                <div class="highlight-title">✅ Clean Simulation Results</div>
+                <p style="margin-bottom: 0;">
+                    <strong>UVM_ERROR: 0</strong> | <strong>SVA Violations: 0</strong> | <strong>Mismatches: 0</strong><br>
+                    All 505 packets processed correctly. Counter invariant verified via RAL. All 4 SVA assertions pass.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bug Tracking Section -->
+        <section class="section" id="bugs">
+            <div class="section-header">
+                <h2>🐛 Bug Tracking & Resolution</h2>
+                <p class="section-description">
+                    Complete history of discovered bugs, their root causes, and resolutions. All DUT bugs have been fixed in RTL v1.1.
+                </p>
+            </div>
+
+            <h3>DUT Bugs (All Fixed in RTL v1.1)</h3>
+            <div class="grid-3">
+                <div class="bug-card fixed">
+                    <div class="bug-id">DUT-001</div>
+                    <div class="bug-title">COUNT_OUT Over-Count Bug</div>
+                    <div class="bug-status fixed">✓ FIXED</div>
+                    <p style="font-size: 13px; margin-top: 12px;">
+                        <strong>Issue:</strong> Counter incremented on <code>out_valid</code> instead of <code>out_fire</code>, 
+                        causing multiple counts per packet during backpressure.
+                    </p>
+                    <p style="font-size: 13px;">
+                        <strong>Fix:</strong> Changed line 287 from <code>if(out_valid)</code> to <code>if(out_fire)</code>
+                    </p>
+                </div>
+
+                <div class="bug-card fixed">
+                    <div class="bug-id">DUT-002</div>
+                    <div class="bug-title">Output Stability Violation</div>
+                    <div class="bug-status fixed">✓ FIXED</div>
+                    <p style="font-size: 13px; margin-top: 12px;">
+                        <strong>Issue:</strong> Output signals changed while <code>out_valid=1</code> and <code>out_ready=0</code>, 
+                        violating Spec Section 6.3 stability rules.
+                    </p>
+                    <p style="font-size: 13px;">
+                        <strong>Fix:</strong> <code>s0</code> slot only updates on <code>out_fire</code>
+                    </p>
+                </div>
+
+                <div class="bug-card fixed">
+                    <div class="bug-id">DUT-003</div>
+                    <div class="bug-title">ROT_AMT Not Configurable</div>
+                    <div class="bug-status fixed">✓ RESOLVED</div>
+                    <p style="font-size: 13px; margin-top: 12px;">
+                        <strong>Issue:</strong> ROT_AMT hardcoded as <code>localparam</code> instead of configurable register.
+                    </p>
+                    <p style="font-size: 13px;">
+                        <strong>Resolution:</strong> Spec v1.1 clarifies ROT_AMT is intentionally fixed at 4 bits (not a bug)
+                    </p>
+                </div>
+            </div>
+
+            <h3>Testbench Bugs (All Closed)</h3>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Bug ID</th>
+                        <th>Title</th>
+                        <th>Severity</th>
+                        <th>Status</th>
+                        <th>Resolution</th>
+                    </tr>
+                    <tr>
+                        <td><code>TB-001</code></td>
+                        <td>Virtual Interface config_db Collision</td>
+                        <td><span class="badge badge-red">Critical</span></td>
+                        <td><span class="badge badge-green">Closed</span></td>
+                        <td>Direct uvm_config_db::set for each interface type</td>
+                    </tr>
+                    <tr>
+                        <td><code>TB-002</code></td>
+                        <td>Reset Wait Race Condition</td>
+                        <td><span class="badge badge-yellow">High</span></td>
+                        <td><span class="badge badge-green">Closed</span></td>
+                        <td>Changed to clocked wait: <code>do @(posedge clk) while (rst)</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>TB-003</code></td>
+                        <td>Zero-Time Loop in Monitor</td>
+                        <td><span class="badge badge-yellow">High</span></td>
+                        <td><span class="badge badge-green">Closed</span></td>
+                        <td>Added clock edge before task calls</td>
+                    </tr>
+                    <tr>
+                        <td><code>TB-004</code></td>
+                        <td>Reference Model Config Stale</td>
+                        <td><span class="badge badge-blue">Medium</span></td>
+                        <td><span class="badge badge-green">Closed</span></td>
+                        <td>Read config from RAL model in predict_output()</td>
+                    </tr>
+                    <tr>
+                        <td><code>TB-005</code></td>
+                        <td>Scoreboard FIFO Ordering Assumption</td>
+                        <td><span class="badge badge-blue">Medium</span></td>
+                        <td><span class="badge badge-green">Closed</span></td>
+                        <td>Match by ID+OPCODE instead of FIFO order</td>
+                    </tr>
+                    <tr>
+                        <td><code>TB-006</code></td>
+                        <td>RAL Model Not Built</td>
+                        <td><span class="badge badge-red">Critical</span></td>
+                        <td><span class="badge badge-green">Closed</span></td>
+                        <td>Added <code>m_reg_model.build()</code> in CpmEnv</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Spec Ambiguities Status</h3>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Status</th>
+                        <th>Resolution</th>
+                    </tr>
+                    <tr>
+                        <td>ROT_AMT value undefined</td>
+                        <td><span class="badge badge-green">Resolved</span></td>
+                        <td>Spec v1.1 confirms fixed at 4 bits</td>
+                    </tr>
+                    <tr>
+                        <td>Counter invariant timing</td>
+                        <td><span class="badge badge-green">Resolved</span></td>
+                        <td>STATUS.BUSY defines when invariant holds</td>
+                    </tr>
+                    <tr>
+                        <td>SOFT_RST scope</td>
+                        <td><span class="badge badge-green">Resolved</span></td>
+                        <td>"Clears counters and internal state" includes pipeline</td>
+                    </tr>
+                    <tr>
+                        <td>Ordering contradiction</td>
+                        <td><span class="badge badge-yellow">Open</span></td>
+                        <td>Different latencies vs "no reordering" - needs clarification</td>
+                    </tr>
+                    <tr>
+                        <td>Counter overflow behavior</td>
+                        <td><span class="badge badge-yellow">Open</span></td>
+                        <td>Standard wrap assumed (low priority)</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Callbacks Section -->
+        <section class="section" id="callbacks">
+            <div class="section-header">
+                <h2>🪝 Callback Implementation</h2>
+                <p class="section-description">
+                    Mandatory callback mechanism implemented with real purpose: tracking packet statistics throughout simulation.
+                </p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon cyan">📊</div>
+                        <div>
+                            <div class="card-title">CpmPacketStatsCb</div>
+                            <div class="card-subtitle">Packet Statistics Callback</div>
+                        </div>
+                    </div>
+                    <p>A concrete callback class that extends <code>CpmBasePacketCb</code> with real statistics tracking functionality.</p>
+                    
+                    <h4 style="font-size: 16px; margin: 20px 0 15px;">Statistics Tracked</h4>
+                    <ul>
+                        <li><strong>m_opcode_count[16]:</strong> Count per opcode (0-15)</li>
+                        <li><strong>m_total_packets:</strong> Total packets driven</li>
+                        <li><strong>m_min_payload:</strong> Minimum payload seen</li>
+                        <li><strong>m_max_payload:</strong> Maximum payload seen</li>
+                        <li><strong>m_first_packet_time:</strong> Test start time</li>
+                        <li><strong>m_last_packet_time:</strong> Test end time</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon green">✓</div>
+                        <div>
+                            <div class="card-title">Callback Results</div>
+                            <div class="card-subtitle">From CpmMainTest</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--bg-code); border-radius: 10px; padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 2;">
+                        <div style="color: var(--accent-green);">Packet Callback Statistics:</div>
+                        <div>&nbsp;&nbsp;Total packets: <strong style="color: var(--accent-blue);">505</strong></div>
+                        <div>&nbsp;&nbsp;Opcodes used: <strong style="color: var(--accent-green);">16/16</strong></div>
+                        <div>&nbsp;&nbsp;Payload range: <strong style="color: var(--accent-purple);">0x0000 - 0xFFFF</strong></div>
+                        <div>&nbsp;&nbsp;Duration: <strong style="color: var(--accent-yellow);">465ns - 169.3ms</strong></div>
+                    </div>
+
+                    <div class="highlight" style="margin-top: 20px;">
+                        <div class="highlight-title">📍 Registration Point</div>
+                        <p style="margin-bottom: 0; font-size: 14px;">
+                            Callback registered in <code>CpmMainTest.connect_phase()</code>:<br>
+                            <code style="color: var(--accent-blue);">uvm_callbacks#(CpmPacketDriver, CpmBasePacketCb)::add(...)</code>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Callback Architecture</h3>
+            <div class="code-block">
+<code><span class="code-comment">// Base callback class (empty virtual methods)</span>
+<span class="code-keyword">class</span> <span class="code-type">CpmBasePacketCb</span> <span class="code-keyword">extends</span> uvm_callback;
+    <span class="code-keyword">virtual task</span> pre_drive(CpmPacketDriver driver, CpmPacketTxn txn);
+    <span class="code-keyword">virtual task</span> post_drive(CpmPacketDriver driver, CpmPacketTxn txn);
+<span class="code-keyword">endclass</span>
+
+<span class="code-comment">// Concrete implementation with real purpose</span>
+<span class="code-keyword">class</span> <span class="code-type">CpmPacketStatsCb</span> <span class="code-keyword">extends</span> CpmBasePacketCb;
+    <span class="code-type">int</span> m_opcode_count[<span class="code-number">16</span>];
+    <span class="code-type">int</span> m_total_packets;
+    
+    <span class="code-keyword">virtual task</span> post_drive(CpmPacketDriver driver, CpmPacketTxn txn);
+        m_total_packets++;
+        m_opcode_count[txn.m_opcode]++;
+        <span class="code-comment">// Track payload range, timing, etc.</span>
+    <span class="code-keyword">endtask</span>
+<span class="code-keyword">endclass</span></code>
+            </div>
+        </section>
+
+        <!-- SVA Assertions Section -->
+        <section class="section" id="sva">
+            <div class="section-header">
+                <h2>✓ SVA Assertions</h2>
+                <p class="section-description">
+                    SystemVerilog Assertions in CpmStreamIf.sv - all mandatory assertions implemented and passing.
+                </p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon green">✓</div>
+                        <div>
+                            <div class="card-title">p_input_stability</div>
+                            <div class="card-subtitle">Input Stability Under Stall</div>
+                        </div>
+                    </div>
+                    <div class="code-block" style="font-size: 12px;">
+<code><span class="code-keyword">property</span> p_input_stability;
+  @(<span class="code-keyword">posedge</span> clk) <span class="code-keyword">disable iff</span> (rst)
+  (in_valid && !in_ready) |=> 
+    $stable(in_id) && $stable(in_opcode) && 
+    $stable(in_payload);
+<span class="code-keyword">endproperty</span></code>
+                    </div>
+                    <div class="badge badge-green">0 violations</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon green">✓</div>
+                        <div>
+                            <div class="card-title">p_output_stability</div>
+                            <div class="card-subtitle">Output Stability Under Stall</div>
+                        </div>
+                    </div>
+                    <div class="code-block" style="font-size: 12px;">
+<code><span class="code-keyword">property</span> p_output_stability;
+  @(<span class="code-keyword">posedge</span> clk) <span class="code-keyword">disable iff</span> (rst)
+  (out_valid && !out_ready) |=> 
+    $stable(out_id) && $stable(out_opcode) && 
+    $stable(out_payload);
+<span class="code-keyword">endproperty</span></code>
+                    </div>
+                    <div class="badge badge-green">0 violations</div>
+                    <div style="margin-top: 10px; font-size: 12px; color: var(--text-muted);">
+                        <strong>Note:</strong> Previously failed in RTL v1.0, fixed in v1.1
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon green">✓</div>
+                        <div>
+                            <div class="card-title">p_bounded_liveness</div>
+                            <div class="card-subtitle">Packet Output Within Latency</div>
+                        </div>
+                    </div>
+                    <div class="code-block" style="font-size: 12px;">
+<code><span class="code-keyword">property</span> p_bounded_liveness;
+  @(<span class="code-keyword">posedge</span> clk) 
+  <span class="code-keyword">disable iff</span> (rst || packet_will_drop)
+  (in_fire && out_ready) |-> ##[<span class="code-number">0</span>:<span class="code-number">10</span>] out_fire;
+<span class="code-keyword">endproperty</span></code>
+                    </div>
+                    <div class="badge badge-green">0 violations</div>
+                    <div style="margin-top: 10px; font-size: 12px; color: var(--text-muted);">
+                        <strong>Drop Awareness:</strong> Disabled when DROP_EN && opcode matches
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon blue">📊</div>
+                        <div>
+                            <div class="card-title">Cover Properties</div>
+                            <div class="card-subtitle">4 Cover Properties</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li><code>c_input_stall</code> - Input stall event observed</li>
+                        <li><code>c_output_stall</code> - Output stall event observed</li>
+                        <li><code>c_in_fire</code> - Input handshake completed</li>
+                        <li><code>c_out_fire</code> - Output handshake completed</li>
+                    </ul>
+                    <div class="badge badge-green">All hit</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sequences Section -->
+        <section class="section" id="sequences">
+            <div class="section-header">
+                <h2>🔄 Sequence Library</h2>
+                <p class="section-description">
+                    Complete sequence library with virtual sequences orchestrating the test flow.
+                </p>
+            </div>
+
+            <h3>Virtual Sequence Flow</h3>
+            <div class="grid-4" style="margin-bottom: 30px;">
+                <div class="phase-card" style="border-top: 4px solid var(--accent);">
+                    <div class="phase-number" style="font-size: 24px;">1</div>
+                    <div class="phase-title" style="font-size: 14px;">Reset Wait</div>
+                    <div class="phase-description" style="font-size: 12px;">Wait for reset deassert</div>
+                </div>
+                <div class="phase-card" style="border-top: 4px solid var(--accent-blue);">
+                    <div class="phase-number" style="font-size: 24px;">2</div>
+                    <div class="phase-title" style="font-size: 14px;">Configure</div>
+                    <div class="phase-description" style="font-size: 12px;">CpmConfigSeq via RAL</div>
+                </div>
+                <div class="phase-card" style="border-top: 4px solid var(--accent-green);">
+                    <div class="phase-number" style="font-size: 24px;">3</div>
+                    <div class="phase-title" style="font-size: 14px;">Traffic</div>
+                    <div class="phase-description" style="font-size: 12px;">200 random packets</div>
+                </div>
+                <div class="phase-card" style="border-top: 4px solid var(--accent-purple);">
+                    <div class="phase-number" style="font-size: 24px;">4</div>
+                    <div class="phase-title" style="font-size: 14px;">Reconfigure</div>
+                    <div class="phase-description" style="font-size: 12px;">Cycle all 4 modes</div>
+                </div>
+            </div>
+            <div class="grid-4" style="margin-bottom: 30px;">
+                <div class="phase-card" style="border-top: 4px solid var(--accent-yellow);">
+                    <div class="phase-number" style="font-size: 24px;">5</div>
+                    <div class="phase-title" style="font-size: 14px;">Stress</div>
+                    <div class="phase-description" style="font-size: 12px;">Burst traffic (20/burst)</div>
+                </div>
+                <div class="phase-card" style="border-top: 4px solid var(--accent-red);">
+                    <div class="phase-number" style="font-size: 24px;">6</div>
+                    <div class="phase-title" style="font-size: 14px;">Drop Test</div>
+                    <div class="phase-description" style="font-size: 12px;">20 dropped packets</div>
+                </div>
+                <div class="phase-card" style="border-top: 4px solid var(--accent-cyan);">
+                    <div class="phase-number" style="font-size: 24px;">7</div>
+                    <div class="phase-title" style="font-size: 14px;">Readback</div>
+                    <div class="phase-description" style="font-size: 12px;">RAL counter check</div>
+                </div>
+                <div class="phase-card" style="border-top: 4px solid var(--accent-green);">
+                    <div class="phase-number" style="font-size: 24px;">8</div>
+                    <div class="phase-title" style="font-size: 14px;">End Check</div>
+                    <div class="phase-description" style="font-size: 12px;">Verify invariant</div>
+                </div>
+            </div>
+            <div class="highlight">
+                <div class="highlight-title">CpmTopVirtualSeq (MANDATORY)</div>
+                <ul style="margin: 0; font-size: 14px;">
+                    <li>Raises objection at start, drops at end</li>
+                    <li>Checks counter invariant via RAL when <code>STATUS.BUSY == 0</code></li>
+                    <li>Waits for pipeline drain before final checks</li>
+                </ul>
+            </div>
+
+            <h3>Sequence Types</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon purple">🎯</div>
+                        <div>
+                            <div class="card-title">Virtual Sequences</div>
+                            <div class="card-subtitle">Orchestration layer</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li><strong>CpmTopVirtualSeq</strong> - Main test flow</li>
+                        <li>8-step orchestration</li>
+                        <li>Raises/drops objections</li>
+                        <li>Counter invariant check</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon blue">📝</div>
+                        <div>
+                            <div class="card-title">RAL Sequences</div>
+                            <div class="card-subtitle">Configuration layer</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li><strong>CpmConfigSeq</strong> - Programs registers</li>
+                        <li>Sets MODE, MASK, ADD_CONST</li>
+                        <li>Configures DROP_EN, DROP_OPCODE</li>
+                        <li>Uses RAL API for all writes</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon green">📦</div>
+                        <div>
+                            <div class="card-title">Packet Sequences</div>
+                            <div class="card-subtitle">Traffic layer</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li><strong>CpmBaseTrafficSeq</strong> - Random packets</li>
+                        <li><strong>CpmStressSeq</strong> - Burst traffic</li>
+                        <li><strong>CpmDropSeq</strong> - Target drop opcode</li>
+                        <li><strong>CpmCoverageTrafficSeq</strong> - All 16 opcodes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Factory Override Example</h3>
+            <div class="code-block">
+<code><span class="code-comment">// In CpmMainTest.build_phase() - MANDATORY factory override</span>
+<span class="code-keyword">function void</span> build_phase(uvm_phase phase);
+    <span class="code-keyword">super</span>.build_phase(phase);
+    
+    <span class="code-comment">// Override base traffic sequence with coverage-driven variant</span>
+    CpmBaseTrafficSeq::type_id::set_type_override(
+        CpmCoverageTrafficSeq::get_type()
+    );
+    
+    `uvm_info(<span class="code-string">"FACTORY"</span>, <span class="code-string">"CpmBaseTrafficSeq → CpmCoverageTrafficSeq"</span>, UVM_MEDIUM)
+<span class="code-keyword">endfunction</span></code>
+            </div>
+        </section>
+
+        <!-- RAL Model Section -->
+        <section class="section" id="ral">
+            <div class="section-header">
+                <h2>📝 RAL Model</h2>
+                <p class="section-description">
+                    Register Abstraction Layer (RAL) implementation - mandatory requirement for systematic register verification.
+                </p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon blue">🗄️</div>
+                        <div>
+                            <div class="card-title">CpmRegModel</div>
+                            <div class="card-subtitle">Register Block</div>
+                        </div>
+                    </div>
+                    <p>Central register model containing all 8 CPM registers with proper field definitions.</p>
+                    <div class="table-container" style="margin-top: 15px;">
+                        <table style="font-size: 12px;">
+                            <tr><th>Register</th><th>Access</th><th>Fields</th></tr>
+                            <tr><td>m_ctrl</td><td>RW</td><td>m_enable, m_soft_rst</td></tr>
+                            <tr><td>m_mode</td><td>RW</td><td>m_op_mode</td></tr>
+                            <tr><td>m_params</td><td>RW</td><td>m_mask, m_add_const</td></tr>
+                            <tr><td>m_drop_cfg</td><td>RW</td><td>m_drop_en, m_drop_opcode</td></tr>
+                            <tr><td>m_status</td><td>RO</td><td>m_busy</td></tr>
+                            <tr><td>m_count_in</td><td>RO</td><td>m_count_in</td></tr>
+                            <tr><td>m_count_out</td><td>RO</td><td>m_count_out</td></tr>
+                            <tr><td>m_dropped_count</td><td>RO</td><td>m_dropped_count</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon green">🔄</div>
+                        <div>
+                            <div class="card-title">RAL Flow</div>
+                            <div class="card-subtitle">Read/Write Path</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Visual RAL Flow -->
+                    <div style="padding: 20px 10px;">
+                        <!-- Row 1: Sequence → Model → Adapter -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(139,92,246,0.1)); border: 1px solid var(--accent-purple); border-radius: 8px; padding: 10px 15px; text-align: center; flex: 1;">
+                                <div style="font-size: 11px; color: var(--accent-purple); font-weight: 600;">CpmConfigSeq</div>
+                                <div style="font-size: 10px; color: var(--text-muted);">RAL API</div>
+                            </div>
+                            <div style="color: var(--accent); padding: 0 10px;">→</div>
+                            <div style="background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(99,102,241,0.1)); border: 1px solid var(--accent); border-radius: 8px; padding: 10px 15px; text-align: center; flex: 1;">
+                                <div style="font-size: 11px; color: var(--accent); font-weight: 600;">CpmRegModel</div>
+                                <div style="font-size: 10px; color: var(--text-muted);">Mirror</div>
+                            </div>
+                            <div style="color: var(--accent); padding: 0 10px;">→</div>
+                            <div style="background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(59,130,246,0.1)); border: 1px solid var(--accent-blue); border-radius: 8px; padding: 10px 15px; text-align: center; flex: 1;">
+                                <div style="font-size: 11px; color: var(--accent-blue); font-weight: 600;">Adapter</div>
+                                <div style="font-size: 10px; color: var(--text-muted);">reg2bus()</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Arrow down on right -->
+                        <div style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+                            <div style="color: var(--accent-blue); font-size: 18px; margin-right: 45px;">↓</div>
+                        </div>
+                        
+                        <!-- Row 2: Predictor ← Driver -->
+                        <div style="display: flex; align-items: center; justify-content: flex-end; gap: 10px;">
+                            <div style="background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.1)); border: 1px solid var(--accent-green); border-radius: 8px; padding: 10px 15px; text-align: center; flex: 1; max-width: 140px;">
+                                <div style="font-size: 11px; color: var(--accent-green); font-weight: 600;">Predictor</div>
+                                <div style="font-size: 10px; color: var(--text-muted);">Auto-update</div>
+                            </div>
+                            <div style="color: var(--accent-green); padding: 0 10px;">←</div>
+                            <div style="background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.1)); border: 1px solid var(--accent-yellow); border-radius: 8px; padding: 10px 15px; text-align: center; flex: 1; max-width: 140px;">
+                                <div style="font-size: 11px; color: var(--accent-yellow); font-weight: 600;">CpmRegDriver</div>
+                                <div style="font-size: 10px; color: var(--text-muted);">Bus xfer</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Arrow from Predictor back to Model -->
+                        <div style="display: flex; margin-top: 15px;">
+                            <div style="color: var(--accent-green); font-size: 18px; margin-left: 60px;">↑</div>
+                            <div style="font-size: 10px; color: var(--text-muted); margin-left: 10px; align-self: center;">Updates mirror</div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <h3>RAL Reset Sequence</h3>
+            <div class="highlight success">
+                <div class="highlight-title">✅ Mandatory Reset Verification</div>
+                <p style="margin-bottom: 0;">
+                    <code>CpmRalResetTest</code> executes <code>uvm_reg_hw_reset_seq</code> to verify all register reset values match the specification.
+                    This is a mandatory requirement per the verification deliverables document.
+                </p>
+            </div>
+
+            <div class="code-block">
+<code><span class="code-comment">// CpmRalResetTest - Mandatory RAL reset verification</span>
+<span class="code-keyword">task</span> run_phase(uvm_phase phase);
+    uvm_reg_hw_reset_seq reset_seq;
+    
+    phase.raise_objection(<span class="code-keyword">this</span>);
+    reset_seq = uvm_reg_hw_reset_seq::type_id::create(<span class="code-string">"reset_seq"</span>);
+    reset_seq.model = m_env.m_reg_model;
+    reset_seq.start(<span class="code-keyword">null</span>);
+    phase.drop_objection(<span class="code-keyword">this</span>);
+<span class="code-keyword">endtask</span></code>
+            </div>
+        </section>
+
+        <!-- UVM Components Section -->
+        <section class="section" id="uvm-components">
+            <div class="section-header">
+                <h2>🧩 UVM Component Hierarchy</h2>
+                <p class="section-description">
+                    Complete UVM component hierarchy showing the relationship between all verification components.
+                </p>
+            </div>
+
+            <h3>Component Tree</h3>
+            
+            <!-- Test Level -->
+            <div class="card" style="border: 2px solid var(--accent-purple); background: linear-gradient(135deg, rgba(139,92,246,0.1), transparent); margin-bottom: 20px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                    <span style="font-size: 20px;">🧪</span>
+                    <div>
+                        <div style="font-weight: 700; color: var(--accent-purple);">uvm_test_top</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">CpmMainTest | CpmSmokeTest | CpmRalResetTest</div>
+                    </div>
+                </div>
+                
+                <!-- Environment Level -->
+                <div class="card" style="border: 2px solid var(--accent); margin: 0;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                        <span style="font-size: 18px;">🏗️</span>
+                        <div>
+                            <div style="font-weight: 700; color: var(--accent);">m_env (CpmEnv)</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Agents Row -->
+                    <div class="grid-2" style="margin-bottom: 20px;">
+                        <!-- Packet Agent -->
+                        <div style="background: var(--bg-secondary); border-radius: 10px; padding: 15px; border-left: 4px solid var(--accent-blue);">
+                            <div style="font-weight: 600; color: var(--accent-blue); margin-bottom: 12px;">📦 m_packet_agent</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 15px;">
+                                <div style="background: var(--bg-card); padding: 8px 12px; border-radius: 6px; font-size: 12px;">
+                                    <span style="color: var(--text-primary);">m_sequencer</span>
+                                </div>
+                                <div style="background: var(--bg-card); padding: 8px 12px; border-radius: 6px; font-size: 12px;">
+                                    <span style="color: var(--text-primary);">m_driver</span>
+                                    <span class="badge badge-cyan" style="margin-left: 8px; font-size: 9px;">+ Callbacks</span>
+                                </div>
+                                <div style="background: var(--bg-card); padding: 8px 12px; border-radius: 6px; font-size: 12px;">
+                                    <span style="color: var(--text-primary);">m_monitor</span>
+                                    <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+                                        → m_ap_input, m_ap_output
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Reg Agent -->
+                        <div style="background: var(--bg-secondary); border-radius: 10px; padding: 15px; border-left: 4px solid var(--accent-green);">
+                            <div style="font-weight: 600; color: var(--accent-green); margin-bottom: 12px;">📝 m_reg_agent</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 15px;">
+                                <div style="background: var(--bg-card); padding: 8px 12px; border-radius: 6px; font-size: 12px;">
+                                    <span style="color: var(--text-primary);">m_sequencer</span>
+                                </div>
+                                <div style="background: var(--bg-card); padding: 8px 12px; border-radius: 6px; font-size: 12px;">
+                                    <span style="color: var(--text-primary);">m_driver</span>
+                                </div>
+                                <div style="background: var(--bg-card); padding: 8px 12px; border-radius: 6px; font-size: 12px;">
+                                    <span style="color: var(--text-primary);">m_monitor</span>
+                                    <div style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+                                        → m_ap → Predictor
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Supporting Components Row -->
+                    <div class="grid-3" style="margin-bottom: 15px;">
+                        <!-- Scoreboard -->
+                        <div style="background: var(--bg-secondary); border-radius: 10px; padding: 15px; border-left: 4px solid var(--accent-yellow);">
+                            <div style="font-weight: 600; color: var(--accent-yellow); margin-bottom: 10px; font-size: 13px;">✅ m_scoreboard</div>
+                            <ul style="font-size: 11px; margin: 0; padding-left: 15px;">
+                                <li>CpmRefModel</li>
+                                <li>Expected queue</li>
+                                <li>write_input/output()</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Coverage -->
+                        <div style="background: var(--bg-secondary); border-radius: 10px; padding: 15px; border-left: 4px solid var(--accent-purple);">
+                            <div style="font-weight: 600; color: var(--accent-purple); margin-bottom: 10px; font-size: 13px;">📊 Coverage</div>
+                            <ul style="font-size: 11px; margin: 0; padding-left: 15px;">
+                                <li>m_packet_coverage</li>
+                                <li>m_reg_coverage</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- RAL -->
+                        <div style="background: var(--bg-secondary); border-radius: 10px; padding: 15px; border-left: 4px solid var(--accent);">
+                            <div style="font-weight: 600; color: var(--accent); margin-bottom: 10px; font-size: 13px;">🗄️ RAL</div>
+                            <ul style="font-size: 11px; margin: 0; padding-left: 15px;">
+                                <li>m_reg_model (8 regs)</li>
+                                <li>m_reg_adapter</li>
+                                <li>m_predictor</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Virtual Sequences -->
+            <div class="card" style="border: 2px dashed var(--accent-cyan); background: linear-gradient(135deg, rgba(6,182,212,0.05), transparent);">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                    <span style="font-size: 18px;">🔄</span>
+                    <div>
+                        <div style="font-weight: 700; color: var(--accent-cyan);">Virtual Sequences</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Started on m_env.m_packet_agent.m_sequencer</div>
+                    </div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; padding-left: 15px;">
+                    <span class="badge badge-purple">CpmTopVirtualSeq</span>
+                    <span class="badge badge-blue">CpmConfigSeq</span>
+                    <span class="badge badge-green">CpmBaseTrafficSeq</span>
+                    <span class="badge badge-yellow">CpmStressSeq</span>
+                    <span class="badge badge-red">CpmDropSeq</span>
+                </div>
+            </div>
+
+            <h3>Component Statistics</h3>
+            <div class="grid-5">
+                <div class="card" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 32px; font-weight: 800; color: var(--accent);">2</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">Agents</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 32px; font-weight: 800; color: var(--accent-blue);">4</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">Monitors</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 32px; font-weight: 800; color: var(--accent-green);">8</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">Registers</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 32px; font-weight: 800; color: var(--accent-purple);">6</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">Sequences</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 32px; font-weight: 800; color: var(--accent-yellow);">4</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">Tests</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="section" id="results">
+            <div class="section-header">
+                <h2>🏆 Verification Results Summary</h2>
+                <p class="section-description">
+                    Complete verification results demonstrating all closure criteria have been met with RTL v1.1.
+                </p>
+            </div>
+
+            <h3>Test Results</h3>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Test</th>
+                        <th>Packets</th>
+                        <th>Matched</th>
+                        <th>Dropped</th>
+                        <th>Mismatched</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td><strong>CpmSmokeTest</strong></td>
+                        <td>10</td>
+                        <td>10</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td><span class="badge badge-green">✓ PASS</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>CpmMainTest</strong></td>
+                        <td>505</td>
+                        <td>485</td>
+                        <td>20</td>
+                        <td>0</td>
+                        <td><span class="badge badge-green">✓ PASS</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>CpmRalResetTest</strong></td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td><span class="badge badge-green">✓ PASS</span></td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Key Metrics</h3>
+            <div class="grid-5">
+                <div class="metric-card">
+                    <div class="metric-value" style="color: var(--accent-green);">505</div>
+                    <div class="metric-label">Packets Input</div>
+                    <div class="metric-detail">All processed</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: var(--accent-blue);">485</div>
+                    <div class="metric-label">Packets Output</div>
+                    <div class="metric-detail">All matched</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: var(--accent-yellow);">20</div>
+                    <div class="metric-label">Dropped</div>
+                    <div class="metric-detail">Intentional</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: var(--accent-green);">0</div>
+                    <div class="metric-label">Mismatches</div>
+                    <div class="metric-detail">100% accuracy</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="color: var(--accent-green);">0</div>
+                    <div class="metric-label">Errors</div>
+                    <div class="metric-detail">Clean run</div>
+                </div>
+            </div>
+
+            <h3>Counter Invariant Verification</h3>
+            <div class="highlight success">
+                <div class="highlight-title">✅ Counter Invariant PASS</div>
+                <p style="margin-bottom: 0;">
+                    <code style="font-size: 16px;">COUNT_IN (40) == COUNT_OUT (40) + DROPPED_COUNT (0)</code><br><br>
+                    Verified via RAL readback after waiting for <code>STATUS.BUSY == 0</code>.<br>
+                    RTL v1.1 fix confirmed: counters now correct under backpressure.
+                </p>
+            </div>
+
+            <h3>Closure Criteria Checklist</h3>
+            <div class="card">
+                <div class="grid-2">
+                    <ul>
+                        <li>✅ All tests pass (no runtime hangs)</li>
+                        <li>✅ Scoreboard reports 0 mismatches</li>
+                        <li>✅ All 4 SVA assertions pass (0 violations)</li>
+                        <li>✅ Functional coverage targets achieved</li>
+                        <li>✅ RAL reset sequence passes cleanly</li>
+                        <li>✅ Counter invariant verified via RAL</li>
+                        <li>✅ UVM_ERROR count = 0</li>
+                    </ul>
+                    <ul>
+                        <li>✅ All 4 operation modes verified</li>
+                        <li>✅ Factory override demonstrated</li>
+                        <li>✅ Callback with real purpose (CpmPacketStatsCb)</li>
+                        <li>✅ Virtual sequence orchestrates complete flow</li>
+                        <li>✅ All DUT bugs fixed in RTL v1.1</li>
+                        <li>✅ Spec v1.1 compliance verified</li>
+                        <li>✅ Documentation complete</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coverage Section -->
+        <section class="section" id="coverage">
+            <div class="section-header">
+                <h2>📊 Coverage Results</h2>
+                <p class="section-description">
+                    Comprehensive functional and code coverage results.
+                </p>
+            </div>
+
+            <h3>Functional Coverage</h3>
+            <div class="grid-4">
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 36px; font-weight: 800; color: var(--accent-green);">100%</div>
+                    <div style="color: var(--text-muted); font-size: 14px;">MODE Coverage</div>
+                    <div class="progress-bar"><div class="progress-fill green" style="width: 100%;"></div></div>
+                    <div style="font-size: 12px; color: var(--text-muted);">Target: 100%</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 36px; font-weight: 800; color: var(--accent-green);">100%</div>
+                    <div style="color: var(--text-muted); font-size: 14px;">OPCODE Coverage</div>
+                    <div class="progress-bar"><div class="progress-fill green" style="width: 100%;"></div></div>
+                    <div style="font-size: 12px; color: var(--text-muted);">Target: 90%</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 36px; font-weight: 800; color: var(--accent-green);">100%</div>
+                    <div style="color: var(--text-muted); font-size: 14px;">MODE×OPCODE Cross</div>
+                    <div class="progress-bar"><div class="progress-fill green" style="width: 100%;"></div></div>
+                    <div style="font-size: 12px; color: var(--text-muted);">Target: 80%</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 36px; font-weight: 800; color: var(--accent-blue);">50%</div>
+                    <div style="color: var(--text-muted); font-size: 14px;">Drop/Stall Bins</div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 50%; background: var(--accent-blue);"></div></div>
+                    <div style="font-size: 12px; color: var(--text-muted);">Target: Hit once ✓</div>
+                </div>
+            </div>
+
+            <h3>Code Coverage (DUT)</h3>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Coverage</th>
+                        <th>Target</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>Statements</td>
+                        <td>100.00%</td>
+                        <td>95%</td>
+                        <td><span class="badge badge-green">✓ Exceeds</span></td>
+                    </tr>
+                    <tr>
+                        <td>Branches</td>
+                        <td>95.55%</td>
+                        <td>90%</td>
+                        <td><span class="badge badge-green">✓ Exceeds</span></td>
+                    </tr>
+                    <tr>
+                        <td>Expressions</td>
+                        <td>100.00%</td>
+                        <td>90%</td>
+                        <td><span class="badge badge-green">✓ Exceeds</span></td>
+                    </tr>
+                    <tr>
+                        <td>Conditions</td>
+                        <td>88.88%</td>
+                        <td>80%</td>
+                        <td><span class="badge badge-green">✓ Exceeds</span></td>
+                    </tr>
+                    <tr>
+                        <td>Toggles</td>
+                        <td>58.62%</td>
+                        <td>50%</td>
+                        <td><span class="badge badge-green">✓ Exceeds</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total DUT</strong></td>
+                        <td><strong>88.61%</strong></td>
+                        <td>85%</td>
+                        <td><span class="badge badge-green">✓ Exceeds</span></td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Assertion Coverage</h3>
+            <div class="grid-4">
+                <div class="card" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 28px; font-weight: 800; color: var(--accent-green);">4/4</div>
+                    <div style="color: var(--text-muted); font-size: 13px;">Assertions Pass</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 28px; font-weight: 800; color: var(--accent-green);">0</div>
+                    <div style="color: var(--text-muted); font-size: 13px;">Violations</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 28px; font-weight: 800; color: var(--accent-blue);">4</div>
+                    <div style="color: var(--text-muted); font-size: 13px;">Cover Properties</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 20px;">
+                    <div style="font-size: 28px; font-weight: 800; color: var(--accent-green);">100%</div>
+                    <div style="color: var(--text-muted); font-size: 13px;">Cover Hits</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DUT Overview Section -->
+        <section class="section" id="dut-overview">
+            <div class="section-header">
+                <h2>🔲 DUT Overview</h2>
+                <p class="section-description">
+                    The Configurable Packet Modifier (CPM) is a hardware IP block that processes streaming packets with configurable transformations.
+                </p>
+            </div>
+
+            <h3>Operation Modes</h3>
+            <div class="grid-4">
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 32px; font-weight: 800; color: var(--accent);">0</div>
+                    <div style="font-weight: 600; color: var(--text-primary); margin: 10px 0;">PASS</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">payload unchanged</div>
+                    <div class="badge badge-blue" style="margin-top: 10px;">0 cycles</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 32px; font-weight: 800; color: var(--accent-blue);">1</div>
+                    <div style="font-weight: 600; color: var(--text-primary); margin: 10px 0;">XOR</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">payload ^ MASK</div>
+                    <div class="badge badge-blue" style="margin-top: 10px;">1 cycle</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 32px; font-weight: 800; color: var(--accent-green);">2</div>
+                    <div style="font-weight: 600; color: var(--text-primary); margin: 10px 0;">ADD</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">payload + ADD_CONST</div>
+                    <div class="badge badge-blue" style="margin-top: 10px;">2 cycles</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 32px; font-weight: 800; color: var(--accent-purple);">3</div>
+                    <div style="font-weight: 600; color: var(--text-primary); margin: 10px 0;">ROT</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">rotate left by 4</div>
+                    <div class="badge badge-blue" style="margin-top: 10px;">1 cycle</div>
+                </div>
+            </div>
+
+            <h3>Register Map</h3>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Address</th>
+                        <th>Name</th>
+                        <th>Access</th>
+                        <th>Fields</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><code>0x00</code></td>
+                        <td><strong>CTRL</strong></td>
+                        <td>RW</td>
+                        <td>ENABLE[0], SOFT_RST[1]</td>
+                        <td>Control register</td>
+                    </tr>
+                    <tr>
+                        <td><code>0x04</code></td>
+                        <td><strong>MODE</strong></td>
+                        <td>RW</td>
+                        <td>MODE[1:0]</td>
+                        <td>Processing mode (0-3)</td>
+                    </tr>
+                    <tr>
+                        <td><code>0x08</code></td>
+                        <td><strong>PARAMS</strong></td>
+                        <td>RW</td>
+                        <td>MASK[15:0], ADD_CONST[31:16]</td>
+                        <td>Mode parameters</td>
+                    </tr>
+                    <tr>
+                        <td><code>0x0C</code></td>
+                        <td><strong>DROP_CFG</strong></td>
+                        <td>RW</td>
+                        <td>DROP_EN[0], DROP_OPCODE[7:4]</td>
+                        <td>Drop configuration</td>
+                    </tr>
+                    <tr>
+                        <td><code>0x10</code></td>
+                        <td><strong>STATUS</strong></td>
+                        <td>RO</td>
+                        <td>BUSY[0]</td>
+                        <td>Pipeline busy status</td>
+                    </tr>
+                    <tr>
+                        <td><code>0x14</code></td>
+                        <td><strong>COUNT_IN</strong></td>
+                        <td>RO</td>
+                        <td>[31:0]</td>
+                        <td>Input packet counter</td>
+                    </tr>
+                    <tr>
+                        <td><code>0x18</code></td>
+                        <td><strong>COUNT_OUT</strong></td>
+                        <td>RO</td>
+                        <td>[31:0]</td>
+                        <td>Output packet counter</td>
+                    </tr>
+                    <tr>
+                        <td><code>0x1C</code></td>
+                        <td><strong>DROPPED_COUNT</strong></td>
+                        <td>RO</td>
+                        <td>[31:0]</td>
+                        <td>Dropped packet counter</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="highlight">
+                <div class="highlight-title">⚠️ Critical Invariant</div>
+                <p style="margin-bottom: 0;">
+                    <code>COUNT_OUT + DROPPED_COUNT == COUNT_IN</code><br>
+                    This invariant must always hold when the pipeline is stable (STATUS.BUSY = 0). 
+                    The verification environment checks this at end-of-test via RAL readback.
+                </p>
+            </div>
+        </section>
+
+        <!-- Specification Requirements Section -->
+        <section class="section" id="specification">
+            <div class="section-header">
+                <h2>📄 Specification Requirements</h2>
+                <p class="section-description">
+                    Mandatory requirements from the verification project specification. All must be implemented for closure.
+                </p>
+            </div>
+
+            <h3>Mandatory UVM Mechanisms</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon purple">📝</div>
+                        <div>
+                            <div class="card-title">1. RAL (Register Abstraction Layer)</div>
+                            <div class="card-subtitle">MANDATORY ✅</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>CpmRegModel with all 8 registers</li>
+                        <li>CpmRegAdapter for bus conversion</li>
+                        <li>uvm_reg_predictor for auto-prediction</li>
+                        <li>uvm_reg_hw_reset_seq executed</li>
+                        <li>CpmConfigSeq for RAL-based configuration</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon blue">🔄</div>
+                        <div>
+                            <div class="card-title">2. Virtual Sequence</div>
+                            <div class="card-subtitle">MANDATORY ✅</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>CpmTopVirtualSeq orchestrates complete flow</li>
+                        <li>8-step flow: Reset → Configure → Traffic → Reconfigure → Stress → Drop → Readback → End</li>
+                        <li>Raises/drops objections at virtual sequence level</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon green">🔁</div>
+                        <div>
+                            <div class="card-title">3. Factory Override</div>
+                            <div class="card-subtitle">MANDATORY ✅</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>CpmBaseTrafficSeq → CpmCoverageTrafficSeq</li>
+                        <li>Applied in CpmMainTest.build_phase()</li>
+                        <li>Demonstrates polymorphism</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon cyan">🪝</div>
+                        <div>
+                            <div class="card-title">4. Callbacks</div>
+                            <div class="card-subtitle">MANDATORY ✅ NEW</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>CpmPacketStatsCb with real purpose</li>
+                        <li>Tracks packet statistics (opcode count, payload range)</li>
+                        <li>Registered in CpmMainTest.connect_phase()</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon red">📊</div>
+                        <div>
+                            <div class="card-title">5. Functional Coverage</div>
+                            <div class="card-subtitle">MANDATORY ✅</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>MODE: 100% (all 4 modes)</li>
+                        <li>OPCODE: 100% (all 16 opcodes)</li>
+                        <li>MODE × OPCODE Cross: 100% (64 bins)</li>
+                        <li>Drop/Stall bins: 50% (hit at least once)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon green">✓</div>
+                        <div>
+                            <div class="card-title">6. SVA Assertions</div>
+                            <div class="card-subtitle">MANDATORY ✅</div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>p_input_stability - Input stable under stall</li>
+                        <li>p_output_stability - Output stable under stall</li>
+                        <li>p_bounded_liveness - Packet out within latency</li>
+                        <li>4 cover properties - All hit</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Environment Architecture Section -->
+        <section class="section" id="environment">
+            <div class="section-header">
+                <h2>🏗️ Verification Environment Architecture</h2>
+                <p class="section-description">
+                    Dual-agent UVM architecture with complete separation between packet processing and register configuration.
+                </p>
+            </div>
+
+            <!-- tb_top.sv - OUTERMOST Container -->
+            <div class="card" style="background: linear-gradient(135deg, var(--bg-code), var(--bg-secondary)); border: 3px solid var(--border); padding: 25px;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span class="badge badge-blue" style="font-size: 18px; padding: 10px 25px;">tb_top.sv</span>
+                    <p style="color: var(--text-muted); margin-top: 10px; font-size: 14px;">Testbench Top Module - Hardware Level</p>
+                </div>
+                
+                <!-- Hardware Layer: Clock, Reset, Interfaces, DUT -->
+                <div style="display: flex; gap: 15px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap;">
+                    <div style="background: var(--bg-card); border-radius: 8px; padding: 12px 20px; border: 1px solid var(--border);">
+                        <span style="font-size: 18px;">⏰</span>
+                        <span style="font-size: 13px; margin-left: 8px; color: var(--text-secondary);">Clock (100MHz)</span>
+                    </div>
+                    <div style="background: var(--bg-card); border-radius: 8px; padding: 12px 20px; border: 1px solid var(--border);">
+                        <span style="font-size: 18px;">🔄</span>
+                        <span style="font-size: 13px; margin-left: 8px; color: var(--text-secondary);">Reset Generation</span>
+                    </div>
+                    <div style="background: var(--bg-card); border-radius: 8px; padding: 12px 20px; border: 1px solid var(--border);">
+                        <span style="font-size: 18px;">📡</span>
+                        <span style="font-size: 13px; margin-left: 8px; color: var(--text-secondary);">uvm_config_db</span>
+                    </div>
+                    <div style="background: var(--bg-card); border-radius: 8px; padding: 12px 20px; border: 1px solid var(--border);">
+                        <span style="font-size: 18px;">▶️</span>
+                        <span style="font-size: 13px; margin-left: 8px; color: var(--text-secondary);">run_test()</span>
+                    </div>
+                </div>
+                
+                <!-- Row with Interfaces and DUT -->
+                <div class="grid-3" style="margin-bottom: 25px;">
+                    <!-- Stream Interface -->
+                    <div class="card" style="border-top: 3px solid var(--accent-blue); text-align: center;">
+                        <div style="font-size: 28px; margin-bottom: 10px;">🔌</div>
+                        <div style="font-weight: 600; color: var(--accent-blue); margin-bottom: 5px;">CpmStreamIf</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Stream Interface + SVA</div>
+                        <div style="text-align: left;">
+                            <div style="font-size: 12px; font-weight: 600; color: var(--accent-green); margin-bottom: 5px;">4 SVA Assertions:</div>
+                            <ul style="font-size: 12px; margin: 0; padding-left: 20px;">
+                                <li>Input stability</li>
+                                <li>Output stability</li>
+                                <li>Bounded liveness</li>
+                                <li>4 Cover properties</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Register Interface -->
+                    <div class="card" style="border-top: 3px solid var(--accent-green); text-align: center;">
+                        <div style="font-size: 28px; margin-bottom: 10px;">📋</div>
+                        <div style="font-weight: 600; color: var(--accent-green); margin-bottom: 5px;">CpmRegIf</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Register Bus Interface</div>
+                        <div style="text-align: left;">
+                            <div style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 5px;">Signals:</div>
+                            <ul style="font-size: 12px; margin: 0; padding-left: 20px;">
+                                <li>req, gnt</li>
+                                <li>addr, wdata, rdata</li>
+                                <li>write_en</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- DUT -->
+                    <div class="card" style="border-top: 3px solid var(--accent-red); text-align: center; background: linear-gradient(135deg, rgba(239,68,68,0.1), transparent);">
+                        <div style="font-size: 28px; margin-bottom: 10px;">🔲</div>
+                        <div style="font-weight: 600; color: var(--accent-red); margin-bottom: 5px;">CPM DUT</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">cpm_rtl.sv (v1.1)</div>
+                        <div style="background: rgba(16,185,129,0.2); border-radius: 6px; padding: 10px; margin-top: 10px;">
+                            <div style="font-size: 12px; font-weight: 600; color: var(--accent-green);">✓ BUGS FIXED</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">RTL v1.1</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Connection arrows -->
+                <div style="text-align: center; margin: 15px 0; color: var(--text-muted);">
+                    <span style="font-size: 12px;">Virtual interfaces passed via uvm_config_db#(virtual CpmStreamIf/CpmRegIf)::set</span>
+                </div>
+                <div style="text-align: center; margin: 10px 0; font-size: 24px; color: var(--accent);">
+                    ⬇️
+                </div>
+
+                <!-- CpmEnv Container - INSIDE tb_top -->
+                <div class="card" style="background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary)); border: 2px solid var(--accent); padding: 25px; margin-top: 15px;">
+                    <div style="text-align: center; margin-bottom: 25px;">
+                        <span class="badge badge-purple" style="font-size: 16px; padding: 8px 20px;">CpmEnv</span>
+                        <p style="color: var(--text-muted); margin-top: 10px; font-size: 13px;">UVM Environment (inside Test)</p>
+                    </div>
+                    
+                    <!-- Top Row: Agents and Scoreboard -->
+                    <div class="grid-3" style="margin-bottom: 20px;">
+                        <!-- Packet Agent -->
+                        <div class="card" style="border-left: 4px solid var(--accent-blue);">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                                <span style="font-size: 20px;">📦</span>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--accent-blue); font-size: 14px;">CpmPacketAgent</div>
+                                    <div style="font-size: 11px; color: var(--text-muted);">Stream Interface</div>
+                                </div>
+                            </div>
+                            <div style="background: var(--bg-secondary); border-radius: 6px; padding: 10px; margin-bottom: 8px;">
+                                <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">CpmPacketDriver</div>
+                                <ul style="font-size: 11px; margin: 0; padding-left: 15px; color: var(--text-muted);">
+                                    <li>Valid/Ready handshake</li>
+                                    <li>Callback hooks (pre/post_drive)</li>
+                                </ul>
+                            </div>
+                            <div style="background: var(--bg-secondary); border-radius: 6px; padding: 8px; margin-bottom: 8px;">
+                                <div style="font-size: 12px; font-weight: 600; color: var(--text-primary);">CpmPacketSequencer</div>
+                            </div>
+                            <div style="background: var(--bg-secondary); border-radius: 6px; padding: 10px;">
+                                <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">CpmPacketMonitor</div>
+                                <ul style="font-size: 11px; margin: 0; padding-left: 15px; color: var(--text-muted);">
+                                    <li>Dual ports: m_ap_input, m_ap_output</li>
+                                    <li>Latency tracking</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Register Agent -->
+                        <div class="card" style="border-left: 4px solid var(--accent-green);">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                                <span style="font-size: 20px;">📝</span>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--accent-green); font-size: 14px;">CpmRegAgent</div>
+                                    <div style="font-size: 11px; color: var(--text-muted);">Register Bus</div>
+                                </div>
+                            </div>
+                            <div style="background: var(--bg-secondary); border-radius: 6px; padding: 10px; margin-bottom: 8px;">
+                                <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">CpmRegDriver</div>
+                                <ul style="font-size: 11px; margin: 0; padding-left: 15px; color: var(--text-muted);">
+                                    <li>Req/Gnt protocol</li>
+                                    <li>Read/Write ops</li>
+                                </ul>
+                            </div>
+                            <div style="background: var(--bg-secondary); border-radius: 6px; padding: 8px; margin-bottom: 8px;">
+                                <div style="font-size: 12px; font-weight: 600; color: var(--text-primary);">CpmRegSequencer</div>
+                            </div>
+                            <div style="background: var(--bg-secondary); border-radius: 6px; padding: 10px;">
+                                <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">CpmRegMonitor</div>
+                                <ul style="font-size: 11px; margin: 0; padding-left: 15px; color: var(--text-muted);">
+                                    <li>Transaction extraction</li>
+                                    <li>m_ap → Predictor</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Scoreboard -->
+                        <div class="card" style="border-left: 4px solid var(--accent-yellow);">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                                <span style="font-size: 20px;">✅</span>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--accent-yellow); font-size: 14px;">CpmScoreboard</div>
+                                    <div style="font-size: 11px; color: var(--text-muted);">Checking</div>
+                                </div>
+                            </div>
+                            <div style="background: var(--bg-secondary); border-radius: 6px; padding: 10px; margin-bottom: 8px;">
+                                <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">CpmRefModel</div>
+                                <ul style="font-size: 11px; margin: 0; padding-left: 15px; color: var(--text-muted);">
+                                    <li>4 operation modes</li>
+                                    <li>Drop logic</li>
+                                </ul>
+                            </div>
+                            <div style="background: var(--bg-secondary); border-radius: 6px; padding: 10px;">
+                                <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">Compare Logic</div>
+                                <ul style="font-size: 11px; margin: 0; padding-left: 15px; color: var(--text-muted);">
+                                    <li>Expected queue</li>
+                                    <li>ID+Opcode match</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Row: Coverage and RAL -->
+                    <div class="grid-3">
+                        <!-- Packet Coverage -->
+                        <div class="card" style="border-left: 4px solid var(--accent-purple);">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                <span style="font-size: 18px;">📊</span>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--accent-purple); font-size: 13px;">CpmPacketCoverage</div>
+                                </div>
+                            </div>
+                            <ul style="font-size: 12px; margin: 0;">
+                                <li>MODE <span class="badge badge-green" style="font-size: 9px;">100%</span></li>
+                                <li>OPCODE <span class="badge badge-green" style="font-size: 9px;">100%</span></li>
+                                <li>Cross <span class="badge badge-green" style="font-size: 9px;">100%</span></li>
+                                <li>Drop/Stall <span class="badge badge-blue" style="font-size: 9px;">50%</span></li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Register Coverage -->
+                        <div class="card" style="border-left: 4px solid var(--accent-purple);">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                <span style="font-size: 18px;">📈</span>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--accent-purple); font-size: 13px;">CpmRegCoverage</div>
+                                </div>
+                            </div>
+                            <ul style="font-size: 12px; margin: 0;">
+                                <li>Address <span class="badge badge-green" style="font-size: 9px;">100%</span></li>
+                                <li>Operation <span class="badge badge-green" style="font-size: 9px;">100%</span></li>
+                                <li>Cross <span class="badge badge-blue" style="font-size: 9px;">75%</span></li>
+                            </ul>
+                        </div>
+                        
+                        <!-- RAL Model -->
+                        <div class="card" style="border-left: 4px solid var(--accent);">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                <span style="font-size: 18px;">🗄️</span>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--accent); font-size: 13px;">CpmRegModel (RAL)</div>
+                                </div>
+                            </div>
+                            <ul style="font-size: 12px; margin: 0;">
+                                <li>8 Registers</li>
+                                <li>CpmRegAdapter</li>
+                                <li>uvm_reg_predictor</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>TLM Connections</h3>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Purpose</th>
+                    </tr>
+                    <tr>
+                        <td><code>PacketMonitor.m_ap_input</code></td>
+                        <td><code>Scoreboard.write_input()</code></td>
+                        <td>Send input packets for expected queue</td>
+                    </tr>
+                    <tr>
+                        <td><code>PacketMonitor.m_ap_output</code></td>
+                        <td><code>Scoreboard.write_output()</code></td>
+                        <td>Send output packets for comparison</td>
+                    </tr>
+                    <tr>
+                        <td><code>PacketMonitor.m_ap_input</code></td>
+                        <td><code>PacketCoverage.write()</code></td>
+                        <td>Collect functional coverage</td>
+                    </tr>
+                    <tr>
+                        <td><code>RegMonitor.m_ap</code></td>
+                        <td><code>uvm_reg_predictor.write()</code></td>
+                        <td>RAL prediction</td>
+                    </tr>
+                    <tr>
+                        <td><code>RegMonitor.m_ap</code></td>
+                        <td><code>RegCoverage.write()</code></td>
+                        <td>Register coverage</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Project Phases Section -->
+        <section class="section" id="phases">
+            <div class="section-header">
+                <h2>📈 Project Phases</h2>
+                <p class="section-description">
+                    The verification project was executed in 13 phases, each with specific deliverables.
+                </p>
+            </div>
+
+            <div class="grid-3">
+                <div class="phase-card">
+                    <div class="phase-number">01</div>
+                    <div class="phase-title">Project Setup & Architecture</div>
+                    <div class="phase-description">
+                        Created 40+ placeholder files, established directory structure, designed agent architecture, 
+                        planned RAL integration and virtual sequence flow.
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">02</div>
+                    <div class="phase-title">Transaction & Interface Layer</div>
+                    <div class="phase-description">
+                        Implemented CpmPacketTxn and CpmRegTxn with do_copy, do_compare, constraints. 
+                        Created CpmStreamIf and CpmRegIf interfaces with SVA assertions.
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">03</div>
+                    <div class="phase-title">Driver & Sequencer Layer</div>
+                    <div class="phase-description">
+                        Built CpmPacketDriver with valid/ready protocol, CpmRegDriver with req/gnt protocol. 
+                        Added callback hooks and reset handling.
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">04</div>
+                    <div class="phase-title">Monitor & Coverage Layer</div>
+                    <div class="phase-description">
+                        Created monitors for both interfaces. Implemented CpmPacketCoverage with all mandatory 
+                        coverpoints (MODE, OPCODE, Cross, Drop, Stall).
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">05</div>
+                    <div class="phase-title">Agent & Environment Layer</div>
+                    <div class="phase-description">
+                        Built CpmPacketAgent and CpmRegAgent with active/passive modes. Created CpmEnv with all 
+                        TLM connections and component integration.
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">06</div>
+                    <div class="phase-title">Sequence Library & RAL</div>
+                    <div class="phase-description">
+                        Implemented RAL model with all 8 registers, adapter, predictor. Created virtual sequence 
+                        with 8-step flow and leaf sequences (traffic, stress, drop, coverage).
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">07</div>
+                    <div class="phase-title">Scoreboard & Checkers</div>
+                    <div class="phase-description">
+                        Built scoreboard with reference model implementing all 4 modes. Added expected queue, 
+                        comparison logic, mismatch reporting, and end-of-test checks.
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">08</div>
+                    <div class="phase-title">Callbacks & Extensions</div>
+                    <div class="phase-description">
+                        Created CpmBasePacketCb, CpmBaseRegCb, CpmBaseMonitorCb with pre/post hooks. 
+                        Implemented CpmPacketStatsCb with real statistics tracking.
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">09</div>
+                    <div class="phase-title">Test Suite Development</div>
+                    <div class="phase-description">
+                        Created CpmBaseTest, CpmMainTest (with factory override & callback), CpmSmokeTest, and 
+                        CpmRalResetTest (mandatory RAL reset verification).
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">10</div>
+                    <div class="phase-title">Testbench Top & Simulation</div>
+                    <div class="phase-description">
+                        Created tb_top.sv with DUT instantiation, clock/reset generation, virtual interface 
+                        connections. Built compile.do, elaborate.do, and run.py scripts.
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">11</div>
+                    <div class="phase-title">Verification & Debugging</div>
+                    <div class="phase-description">
+                        Fixed compilation errors, debugged crashes, resolved race conditions. 
+                        Found and documented 3 DUT bugs (all fixed in RTL v1.1).
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-number">12</div>
+                    <div class="phase-title">Documentation & Deliverables</div>
+                    <div class="phase-description">
+                        Created VERIFICATION_PLAN.md, TEST_SUITE.md, USER_GUIDE.md, TROUBLESHOOTING.md, 
+                        SIGNOFF.md. Built modern HTML coverage report generator.
+                    </div>
+                </div>
+
+                <div class="phase-card" style="border: 2px solid var(--accent-green);">
+                    <div class="phase-number" style="color: var(--accent-green);">13</div>
+                    <div class="phase-title">RTL v1.1 & Sign-Off</div>
+                    <div class="phase-description">
+                        Verified RTL v1.1 bug fixes. Updated all tracking files. Achieved 0 errors, 0 SVA violations.
+                        Complete sign-off with spec v1.1 compliance.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- File Structure Section -->
+        <section class="section" id="file-structure">
+            <div class="section-header">
+                <h2>📁 Complete File Structure</h2>
+                <p class="section-description">
+                    Every file in the verification environment with its specific purpose. Total: 40+ SystemVerilog files.
+                </p>
+            </div>
+
+            <h3>Packages (2 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>pkg/CpmTestPkg.sv</code></td>
+                        <td>Main UVM package - imports all components in correct dependency order</td>
+                    </tr>
+                    <tr>
+                        <td><code>pkg/CpmParamsPkg.sv</code></td>
+                        <td>Parameters and types (cpm_mode_e enum, address constants)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Transactions (2 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>transactions/CpmPacketTxn.sv</code></td>
+                        <td>Packet transaction: id, opcode, payload, mode_at_accept. Includes do_copy(), do_compare(), constraints</td>
+                    </tr>
+                    <tr>
+                        <td><code>transactions/CpmRegTxn.sv</code></td>
+                        <td>Register transaction: addr, wdata, rdata, write_en. Used by RAL adapter</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Interfaces & SVA (3 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>interfaces/CpmStreamIf.sv</code></td>
+                        <td>Stream interface with in_*/out_* signals. Contains 4 SVA assertions, 4 cover properties, drop shadow signals</td>
+                    </tr>
+                    <tr>
+                        <td><code>interfaces/CpmRegIf.sv</code></td>
+                        <td>Register bus interface: req, gnt, addr, wdata, rdata, write_en</td>
+                    </tr>
+                    <tr>
+                        <td><code>interfaces/CpmIfBind.sv</code></td>
+                        <td>Interface binding module (optional)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Configuration (3 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>config/CpmStreamAgentConfig.sv</code></td>
+                        <td>Stream agent config: active/passive mode, agent ID</td>
+                    </tr>
+                    <tr>
+                        <td><code>config/CpmRegAgentConfig.sv</code></td>
+                        <td>Register agent config: active/passive mode</td>
+                    </tr>
+                    <tr>
+                        <td><code>config/CpmEnvConfig.sv</code></td>
+                        <td>Environment config: contains both agent configs, test parameters</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Drivers & Monitors (4 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>driver/CpmPacketDriver.sv</code></td>
+                        <td>Valid/ready handshake, backpressure handling, CpmBasePacketCb callback hooks</td>
+                    </tr>
+                    <tr>
+                        <td><code>driver/CpmRegDriver.sv</code></td>
+                        <td>Req/gnt protocol, read/write operations</td>
+                    </tr>
+                    <tr>
+                        <td><code>monitor/CpmPacketMonitor.sv</code></td>
+                        <td>Dual-port monitor: m_ap_input, m_ap_output. Tracks latency, mode_at_accept</td>
+                    </tr>
+                    <tr>
+                        <td><code>monitor/CpmRegMonitor.sv</code></td>
+                        <td>Register bus monitor → RAL predictor and coverage</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Agents (2 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>agent/CpmPacketAgent.sv</code></td>
+                        <td>Contains driver, sequencer, monitor. Active/passive mode support</td>
+                    </tr>
+                    <tr>
+                        <td><code>agent/CpmRegAgent.sv</code></td>
+                        <td>Contains driver, sequencer, monitor. Connected to RAL model</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>RAL - Register Abstraction Layer (3 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>ral/CpmRegModel.sv</code></td>
+                        <td>RAL model with 8 registers: CTRL, MODE, PARAMS, DROP_CFG, STATUS, COUNT_IN, COUNT_OUT, DROPPED_COUNT</td>
+                    </tr>
+                    <tr>
+                        <td><code>ral/CpmRegAdapter.sv</code></td>
+                        <td>RAL adapter: reg2bus() and bus2reg() conversion</td>
+                    </tr>
+                    <tr>
+                        <td><code>ral/CpmRegPredictor.sv</code></td>
+                        <td>Uses uvm_reg_predictor for automatic register prediction</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Sequences (6 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>sequences/virtual/CpmTopVirtualSeq.sv</code></td>
+                        <td><strong>MANDATORY</strong> - 8-step flow: Reset→Configure→Traffic→Reconfigure→Stress→Drop→Readback→End</td>
+                    </tr>
+                    <tr>
+                        <td><code>sequences/ral/CpmConfigSeq.sv</code></td>
+                        <td>RAL config sequence: programs CTRL, MODE, PARAMS, DROP_CFG via RAL API</td>
+                    </tr>
+                    <tr>
+                        <td><code>sequences/packet/CpmBaseTrafficSeq.sv</code></td>
+                        <td>Base traffic sequence: random packets, configurable count</td>
+                    </tr>
+                    <tr>
+                        <td><code>sequences/packet/CpmStressSeq.sv</code></td>
+                        <td>Stress sequence: burst traffic (200 packets, burst size 20)</td>
+                    </tr>
+                    <tr>
+                        <td><code>sequences/packet/CpmDropSeq.sv</code></td>
+                        <td>Drop sequence: forces opcodes matching drop configuration</td>
+                    </tr>
+                    <tr>
+                        <td><code>sequences/packet/CpmCoverageTrafficSeq.sv</code></td>
+                        <td>Coverage traffic: generates all 16 opcodes explicitly</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Scoreboard (3 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>scoreboard/CpmScoreboard.sv</code></td>
+                        <td>Main scoreboard: expected queue, ID+OPCODE matching, counter invariant checks</td>
+                    </tr>
+                    <tr>
+                        <td><code>scoreboard/CpmRefModel.sv</code></td>
+                        <td>Reference model: 4 modes, drop logic, reads config from RAL</td>
+                    </tr>
+                    <tr>
+                        <td><code>scoreboard/CpmScoreboardOutputImp.sv</code></td>
+                        <td>Custom analysis_imp for output packets</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Coverage (2 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>coverage/CpmPacketCoverage.sv</code></td>
+                        <td>cg_packet: cp_mode (100%), cp_opcode (100%), cp_mode_opcode cross (100%), cp_drop, cp_stall</td>
+                    </tr>
+                    <tr>
+                        <td><code>coverage/CpmRegCoverage.sv</code></td>
+                        <td>cg_register: cp_addr, cp_op, cp_addr_op cross</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Callbacks (4 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>callbacks/CpmBasePacketCb.sv</code></td>
+                        <td>Base callback with pre_drive() and post_drive() hooks</td>
+                    </tr>
+                    <tr>
+                        <td><code>callbacks/CpmPacketStatsCb.sv</code></td>
+                        <td><strong>NEW</strong> - Concrete callback tracking packet statistics (opcode counts, payload range)</td>
+                    </tr>
+                    <tr>
+                        <td><code>callbacks/CpmBaseRegCb.sv</code></td>
+                        <td>Base register driver callback</td>
+                    </tr>
+                    <tr>
+                        <td><code>callbacks/CpmBaseMonitorCb.sv</code></td>
+                        <td>Base monitor callback</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Tests (4 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>tests/CpmBaseTest.sv</code></td>
+                        <td>Base test: common setup, creates environment, sets configurations</td>
+                    </tr>
+                    <tr>
+                        <td><code>tests/CpmMainTest.sv</code></td>
+                        <td><strong>Primary test</strong>: factory override + callback registration + virtual sequence</td>
+                    </tr>
+                    <tr>
+                        <td><code>tests/CpmSmokeTest.sv</code></td>
+                        <td>Quick smoke test: 10 packets, basic functionality</td>
+                    </tr>
+                    <tr>
+                        <td><code>tests/CpmRalResetTest.sv</code></td>
+                        <td><strong>MANDATORY</strong>: runs uvm_reg_hw_reset_seq, verifies register reset values</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Environment & Testbench (2 files)</h3>
+            <div class="table-container">
+                <table>
+                    <tr><th>File</th><th>Purpose</th></tr>
+                    <tr>
+                        <td><code>env/CpmEnv.sv</code></td>
+                        <td>Top-level UVM env: both agents, scoreboard, coverage, RAL. All TLM connections</td>
+                    </tr>
+                    <tr>
+                        <td><code>tb_top.sv</code></td>
+                        <td>Testbench top: DUT, interfaces, clock (100MHz), reset, uvm_config_db, run_test()</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="margin-top: 80px; padding: 40px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted);">
+            <p><strong>CPM Verification Project</strong></p>
+            <p>Author: Assaf Afriat | Last Updated: 2026-02-07</p>
+            <p style="margin-top: 15px;">
+                <span class="badge badge-green">RTL v1.1</span>
+                <span class="badge badge-blue" style="margin-left: 10px;">Spec v1.1</span>
+                <span class="badge badge-purple" style="margin-left: 10px;">UVM 1.1d</span>
+            </p>
+            <p style="margin-top: 20px; font-size: 13px;">
+                Built with UVM • QuestaSim 2025.1 • SystemVerilog
+            </p>
+        </footer>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Update active state
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active nav on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section, .hero');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPM Verification Plan</title>
+    <style>
+        /* Clean, copy-friendly styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+            font-size: 11pt;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* Headers */
+        h1 {
+            font-size: 24pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 13pt;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #1e3a8a;
+        }
+
+        h4 {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        /* Meta info */
+        .meta {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .meta-row {
+            margin: 5px 0;
+        }
+
+        /* Paragraphs */
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #e5e7eb;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        /* Code */
+        code {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background: #f3f4f6;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 10pt;
+        }
+
+        pre {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 9pt;
+            line-height: 1.4;
+            white-space: pre;
+        }
+
+        /* Question groups */
+        .question-group {
+            background: #f8fafc;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .question-group h4 {
+            color: #2563eb;
+            margin-top: 0;
+        }
+
+        .question-group.green {
+            border-left-color: #16a34a;
+        }
+        .question-group.green h4 {
+            color: #16a34a;
+        }
+
+        .question-group.purple {
+            border-left-color: #9333ea;
+        }
+        .question-group.purple h4 {
+            color: #9333ea;
+        }
+
+        .question-group.yellow {
+            border-left-color: #ca8a04;
+        }
+        .question-group.yellow h4 {
+            color: #ca8a04;
+        }
+
+        /* Scope lists */
+        .in-scope {
+            background: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        .out-scope {
+            background: #fef2f2;
+            border-left: 4px solid #dc2626;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+
+        /* Test case boxes */
+        .test-case {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #16a34a;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .test-case h4 {
+            margin-top: 0;
+            color: #166534;
+        }
+
+        .test-case.mandatory {
+            border-left-color: #9333ea;
+        }
+
+        .test-case.mandatory h4 {
+            color: #7c3aed;
+        }
+
+        /* Page break hints for printing */
+        .page-break {
+            page-break-before: always;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                padding: 20px;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+            table, pre {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Diagram */
+        .diagram {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 8pt;
+            line-height: 1.2;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            margin: 15px 0;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        /* Horizontal rule */
+        hr {
+            border: none;
+            border-top: 1px solid #d1d5db;
+            margin: 25px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>CPM Verification Plan</h1>
+
+<div class="meta">
+    <div class="meta-row"><strong>Project:</strong> Configurable Packet Modifier (CPM)</div>
+    <div class="meta-row"><strong>Author:</strong> Assaf Afriat</div>
+    <div class="meta-row"><strong>Date:</strong> 2026-02-01</div>
+    <div class="meta-row"><strong>Version:</strong> 1.0</div>
+    <div class="meta-row"><strong>Status:</strong> Planning Phase</div>
+</div>
+
+<hr>
+
+<!-- PHASE 1 -->
+<h2>Phase 1 - Requirements & Stakeholder Analysis</h2>
+
+<p>Before developing the verification plan, the following questions were identified for clarification with relevant stakeholders. Understanding these requirements ensures alignment between the design specification and verification approach.</p>
+
+<div class="question-group">
+    <h4>Digital Design Team - Questions</h4>
+    <ol>
+        <li><strong>Fixed vs. Variable Latency:</strong> According to the specification, latency is mode-dependent (0-2 cycles). Does each MODE always result in a fixed latency (PASS=0, XOR=1, ADD=2, ROT=1), or can it vary dynamically based on pipeline state?</li>
+        <li><strong>Configuration Timing:</strong> If the MODE or PARAMS registers are updated while <code>in_valid</code> is high and a packet is being accepted, does the DUT apply the new configuration to the current packet immediately, or is the configuration captured at the moment of acceptance (in_fire)?</li>
+        <li><strong>ROT_AMT Parameter:</strong> The ROT mode performs a left rotation, but ROT_AMT is defined as a localparam in the RTL (fixed at 4). Is this intentionally fixed, or should it be configurable via a register field?</li>
+        <li><strong>Counter Invariant Timing:</strong> The invariant <code>COUNT_OUT + DROPPED_COUNT == COUNT_IN</code> - at what point in simulation is this guaranteed to hold? Only when STATUS.BUSY = 0 (pipeline empty)?</li>
+    </ol>
+</div>
+
+<div class="question-group green">
+    <h4>Firmware/Software Team - Questions</h4>
+    <ol>
+        <li><strong>Counter Monitoring:</strong> The DROPPED_COUNT register tracks discarded packets. Will your drivers poll this register regularly, or do you expect hardware notification (interrupt) when packets are dropped?</li>
+        <li><strong>Soft Reset Behavior:</strong> In what scenarios do you plan to use the SOFT_RST bit in the CTRL register? Should the pipeline flush completely, and should counters reset to zero?</li>
+        <li><strong>Counter Overflow:</strong> What is the expected behavior when COUNT_IN, COUNT_OUT, or DROPPED_COUNT overflow their 32-bit range? Standard wrap-around or saturation?</li>
+    </ol>
+</div>
+
+<div class="question-group purple">
+    <h4>System Architect - Questions</h4>
+    <ol>
+        <li><strong>Traffic Patterns:</strong> What is the expected distribution between different modes? Do you anticipate long bursts of single-mode traffic or frequent mode switches? This affects our randomized test constraints.</li>
+        <li><strong>Backpressure Scenarios:</strong> If the downstream component fails (permanently low <code>out_ready</code>), how should the CPM behave after its internal 2-slot buffer fills? Block input indefinitely or signal error?</li>
+        <li><strong>Opcode Usage:</strong> Are certain opcodes reserved or more frequently used in the system? This affects our coverage bin weighting strategy.</li>
+    </ol>
+</div>
+
+<div class="question-group yellow">
+    <h4>Board Design Team - Questions</h4>
+    <ol>
+        <li><strong>Clock and Reset:</strong> Are there specific power-up sequencing requirements for <code>clk</code> and <code>rst</code> signals that we should model to ensure the DUT initializes correctly in simulation?</li>
+    </ol>
+</div>
+
+<hr>
+
+<!-- PHASE 2 -->
+<h2>Phase 2 - Verification Plan (vPlan) Development</h2>
+
+<h3>2.1 Scope Definition</h3>
+
+<h4>In Scope</h4>
+<div class="in-scope">
+    <ol>
+        <li><strong>Data Path Functionality:</strong> Verification of all four transformation modes (PASS, XOR, ADD, ROT). Validating that <code>out_payload</code> matches the expected result based on <code>in_payload</code> and the PARAMS register values.</li>
+        <li><strong>Register Functionality:</strong> Validating all 8 registers (CTRL, MODE, PARAMS, DROP_CFG, STATUS, COUNT_IN, COUNT_OUT, DROPPED_COUNT). Verifying that register writes correctly configure DUT behavior and reads return accurate values.</li>
+        <li><strong>Streaming Protocol:</strong> Validation of the <code>CpmStreamIf</code> interface using valid/ready handshake semantics. Testing backpressure handling when <code>out_ready</code> is deasserted.</li>
+        <li><strong>Packet Drop Mechanism:</strong> Verification that packets with opcodes matching DROP_CFG.DROP_OPCODE are discarded when DROP_CFG.DROP_EN is set, and that DROPPED_COUNT increments correctly.</li>
+        <li><strong>Reset Compliance:</strong> Verifying the DUT enters a known state after hardware reset (<code>rst</code>), and that SOFT_RST in CTRL register functions correctly to clear counters and pipeline state.</li>
+        <li><strong>Counter Invariant:</strong> Verification that <code>COUNT_IN == COUNT_OUT + DROPPED_COUNT</code> holds when STATUS.BUSY = 0.</li>
+    </ol>
+</div>
+
+<h4>Out of Scope</h4>
+<div class="out-scope">
+    <ul>
+        <li>Gate-level timing and physical verification</li>
+        <li>Register bus protocol edge cases (focus is on functional behavior)</li>
+        <li>Performance/throughput measurement</li>
+        <li>Multi-beat packets (DUT is single-beat only per specification)</li>
+    </ul>
+</div>
+
+<h3>2.2 Verification Strategy</h3>
+
+<h4>2.2.1 Methodology</h4>
+<ul>
+    <li><strong>UVM 1.1d Framework:</strong> Modular, reusable testbench architecture following UVM best practices</li>
+    <li><strong>Dual-Agent Architecture:</strong> Separate <code>CpmPacketAgent</code> for streaming interface and <code>CpmRegAgent</code> for register configuration</li>
+    <li><strong>RAL Integration:</strong> <code>CpmRegModel</code> with <code>CpmRegAdapter</code> for register abstraction, enabling portable test sequences</li>
+    <li><strong>Self-Checking:</strong> <code>CpmScoreboard</code> with <code>CpmRefModel</code> for automatic comparison of expected vs. actual outputs</li>
+</ul>
+
+<h4>2.2.2 Stimulus Strategy</h4>
+
+<p><strong>Constrained Random Verification:</strong></p>
+<ul>
+    <li><code>CpmPacketTxn</code>: Randomized <code>m_id</code>, <code>m_opcode</code>, <code>m_payload</code> within valid ranges</li>
+    <li>Timing variation: Random inter-packet delays and backpressure patterns</li>
+    <li>Mode switching: Dynamic configuration changes during traffic</li>
+</ul>
+
+<p><strong>Sequence Hierarchy:</strong></p>
+<table>
+    <tr><th>Sequence</th><th>File Location</th><th>Purpose</th></tr>
+    <tr><td><code>CpmTopVirtualSeq</code></td><td>sequences/virtual/</td><td>Orchestrates complete 8-step test flow</td></tr>
+    <tr><td><code>CpmConfigSeq</code></td><td>sequences/ral/</td><td>RAL-based register configuration</td></tr>
+    <tr><td><code>CpmBaseTrafficSeq</code></td><td>sequences/packet/</td><td>Random packet generation</td></tr>
+    <tr><td><code>CpmStressSeq</code></td><td>sequences/packet/</td><td>Burst traffic patterns</td></tr>
+    <tr><td><code>CpmDropSeq</code></td><td>sequences/packet/</td><td>Targeted drop testing</td></tr>
+    <tr><td><code>CpmCoverageTrafficSeq</code></td><td>sequences/packet/</td><td>Coverage-directed traffic (factory override target)</td></tr>
+</table>
+
+<h4>2.2.3 Checking Strategy</h4>
+
+<p><strong>Scoreboard Architecture (<code>CpmScoreboard</code>):</strong></p>
+<ul>
+    <li><code>CpmRefModel</code> computes expected output based on mode captured at input acceptance time (<code>m_mode_at_accept</code>)</li>
+    <li>Input packets stored in expected queue with transformation prediction</li>
+    <li>Output packets matched by <code>m_id</code> + <code>m_opcode</code> key</li>
+    <li>Drop tracking reconciled against DROPPED_COUNT register</li>
+</ul>
+
+<p><strong>Reference Model Transformations (<code>CpmRefModel</code>):</strong></p>
+<pre>
+PASS: payload_out = payload_in                     (unchanged)
+XOR:  payload_out = payload_in ^ PARAMS.MASK       (bitwise XOR)
+ADD:  payload_out = payload_in + PARAMS.ADD_CONST  (addition with wrap)
+ROT:  payload_out = {payload_in[11:0], payload_in[15:12]}  (rotate left by 4)
+</pre>
+
+<p><strong>Protocol Assertions (SVA in <code>CpmStreamIf</code>):</strong></p>
+<table>
+    <tr><th>Assertion</th><th>Description</th></tr>
+    <tr><td><code>p_input_stability</code></td><td>Input signals must remain stable when <code>in_valid=1</code> and <code>in_ready=0</code></td></tr>
+    <tr><td><code>p_output_stability</code></td><td>Output signals must remain stable when <code>out_valid=1</code> and <code>out_ready=0</code></td></tr>
+    <tr><td><code>p_bounded_liveness</code></td><td>Output must appear within latency bound (disabled for dropped packets)</td></tr>
+</table>
+
+<h3>2.3 Metrics for Success (Exit Criteria)</h3>
+
+<h4>2.3.1 Functional Coverage Targets</h4>
+<table>
+    <tr><th>Coverpoint</th><th>Target</th><th>Description</th></tr>
+    <tr><td><code>cp_mode</code></td><td>100%</td><td>All 4 modes exercised</td></tr>
+    <tr><td><code>cp_opcode</code></td><td>90%+</td><td>All 16 opcodes (0-15)</td></tr>
+    <tr><td><code>cp_mode_opcode</code></td><td>80%+</td><td>64 combinations (MODE x OPCODE)</td></tr>
+    <tr><td><code>cp_drop</code></td><td>Hit</td><td>Drop event exercised</td></tr>
+    <tr><td><code>cp_stall</code></td><td>Hit</td><td>Backpressure stall exercised</td></tr>
+</table>
+
+<h4>2.3.2 Code Coverage Targets</h4>
+<table>
+    <tr><th>Metric</th><th>Target</th></tr>
+    <tr><td>Statement Coverage</td><td>95%+</td></tr>
+    <tr><td>Branch Coverage</td><td>90%+</td></tr>
+    <tr><td>Expression Coverage</td><td>90%+</td></tr>
+    <tr><td>Condition Coverage</td><td>80%+</td></tr>
+    <tr><td>Toggle Coverage</td><td>50%+</td></tr>
+    <tr><td><strong>Total DUT Coverage</strong></td><td><strong>85%+</strong></td></tr>
+</table>
+
+<h4>2.3.3 Error-Free Execution</h4>
+<ul>
+    <li>Zero UVM_ERROR or UVM_FATAL messages</li>
+    <li>All SVA assertions pass (0 violations)</li>
+    <li>Scoreboard: 0 mismatches between expected and actual</li>
+    <li>Counter invariant verified after each test phase</li>
+</ul>
+
+<hr>
+
+<!-- PHASE 3 -->
+<h2 class="page-break">Phase 3 - Testbench Architecture</h2>
+
+<h3>3.1 Architecture Block Diagram</h3>
+
+<div class="diagram">
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                              CpmEnv (UVM Environment)                         │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌────────────────────────────┐  │
+│  │  CpmPacketAgent  │  │   CpmRegAgent    │  │      CpmScoreboard         │  │
+│  │  ┌────────────┐  │  │  ┌────────────┐  │  │  ┌────────────────────┐   │  │
+│  │  │CpmPacket   │  │  │  │CpmReg      │  │  │  │   CpmRefModel      │   │  │
+│  │  │  Driver    │  │  │  │  Driver    │  │  │  │   Expected Queue   │   │  │
+│  │  │CpmPacket   │  │  │  │CpmReg      │  │  │  │   Compare Logic    │   │  │
+│  │  │  Monitor   │  │  │  │  Monitor   │  │  │  └────────────────────┘   │  │
+│  │  │CpmPacket   │  │  │  │CpmReg      │  │  └────────────────────────────┘  │
+│  │  │  Sequencer │  │  │  │  Sequencer │  │                                  │
+│  │  └────────────┘  │  │  └────────────┘  │  ┌────────────────────────────┐  │
+│  └──────────────────┘  └──────────────────┘  │      CpmRegModel (RAL)     │  │
+│                                              │      CpmRegAdapter         │  │
+│  ┌──────────────────┐  ┌──────────────────┐  │      CpmRegPredictor       │  │
+│  │CpmPacketCoverage │  │ CpmRegCoverage   │  └────────────────────────────┘  │
+│  │  cg_packet       │  │  cg_register     │                                  │
+│  └──────────────────┘  └──────────────────┘                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+                                     │
+                                     ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                              tb_top.sv (Top Module)                           │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌────────────────────────────┐  │
+│  │   CpmStreamIf    │  │    CpmRegIf      │  │        CPM DUT             │  │
+│  │   (with SVA)     │  │                  │  │      (cpm_rtl.sv)          │  │
+│  └──────────────────┘  └──────────────────┘  └────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────────────────────┘
+</div>
+
+<h3>3.2 Transaction Definitions</h3>
+
+<h4>CpmPacketTxn (Packet Transaction)</h4>
+<table>
+    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+    <tr><td><code>m_id</code></td><td><code>rand bit [3:0]</code></td><td>Packet identifier for tracking through pipeline</td></tr>
+    <tr><td><code>m_opcode</code></td><td><code>rand bit [3:0]</code></td><td>Opcode for drop mechanism comparison</td></tr>
+    <tr><td><code>m_payload</code></td><td><code>rand bit [15:0]</code></td><td>Data payload for transformation</td></tr>
+    <tr><td><code>m_mode_at_accept</code></td><td><code>cpm_mode_e</code></td><td>Mode captured at input acceptance time</td></tr>
+    <tr><td><code>m_mask_at_accept</code></td><td><code>bit [15:0]</code></td><td>MASK value at input acceptance</td></tr>
+    <tr><td><code>m_add_const_at_accept</code></td><td><code>bit [15:0]</code></td><td>ADD_CONST value at input acceptance</td></tr>
+    <tr><td><code>m_timestamp</code></td><td><code>time</code></td><td>Timestamp for latency measurement</td></tr>
+    <tr><td><code>m_expected_payload</code></td><td><code>bit [15:0]</code></td><td>Expected output (for scoreboard comparison)</td></tr>
+</table>
+
+<h4>CpmRegTxn (Register Transaction)</h4>
+<table>
+    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+    <tr><td><code>m_addr</code></td><td><code>rand bit [7:0]</code></td><td>Register address (0x00-0x1C)</td></tr>
+    <tr><td><code>m_wdata</code></td><td><code>rand bit [31:0]</code></td><td>Write data</td></tr>
+    <tr><td><code>m_rdata</code></td><td><code>bit [31:0]</code></td><td>Read data (response from DUT)</td></tr>
+    <tr><td><code>m_write_en</code></td><td><code>rand bit</code></td><td>1 = Write operation, 0 = Read operation</td></tr>
+</table>
+
+<h3>3.3 RAL Integration</h3>
+
+<p><strong>RAL Flow:</strong></p>
+<ol>
+    <li><code>CpmConfigSeq</code> calls <code>m_reg_model.m_mode.write(status, value)</code></li>
+    <li><code>CpmRegAdapter.reg2bus()</code> converts RAL request to <code>CpmRegTxn</code></li>
+    <li><code>CpmRegDriver</code> drives signals on <code>CpmRegIf</code></li>
+    <li><code>CpmRegMonitor</code> captures transaction from bus</li>
+    <li><code>uvm_reg_predictor</code> updates RAL mirror via <code>bus2reg()</code></li>
+</ol>
+
+<h4>RAL Register Map (<code>CpmRegModel</code>)</h4>
+<table>
+    <tr><th>Instance</th><th>Address</th><th>Access</th><th>Fields</th><th>Description</th></tr>
+    <tr><td><code>m_ctrl</code></td><td>0x00</td><td>RW</td><td>ENABLE[0], SOFT_RST[1]</td><td>Control register</td></tr>
+    <tr><td><code>m_mode</code></td><td>0x04</td><td>RW</td><td>MODE[1:0]</td><td>Operation mode</td></tr>
+    <tr><td><code>m_params</code></td><td>0x08</td><td>RW</td><td>MASK[15:0], ADD_CONST[31:16]</td><td>Transformation parameters</td></tr>
+    <tr><td><code>m_drop_cfg</code></td><td>0x0C</td><td>RW</td><td>DROP_EN[0], DROP_OPCODE[7:4]</td><td>Drop configuration</td></tr>
+    <tr><td><code>m_status</code></td><td>0x10</td><td>RO</td><td>BUSY[0]</td><td>Pipeline status</td></tr>
+    <tr><td><code>m_count_in</code></td><td>0x14</td><td>RO</td><td>COUNT[31:0]</td><td>Input packet counter</td></tr>
+    <tr><td><code>m_count_out</code></td><td>0x18</td><td>RO</td><td>COUNT[31:0]</td><td>Output packet counter</td></tr>
+    <tr><td><code>m_dropped_count</code></td><td>0x1C</td><td>RO</td><td>COUNT[31:0]</td><td>Dropped packet counter</td></tr>
+</table>
+
+<h3>3.4 Component Summary</h3>
+
+<h4>Environment Components</h4>
+<table>
+    <tr><th>Component</th><th>File</th><th>Description</th></tr>
+    <tr><td><code>CpmEnv</code></td><td>env/CpmEnv.sv</td><td>Top environment container</td></tr>
+    <tr><td><code>CpmPacketAgent</code></td><td>agent/CpmPacketAgent.sv</td><td>Stream interface agent (driver + monitor + sequencer)</td></tr>
+    <tr><td><code>CpmRegAgent</code></td><td>agent/CpmRegAgent.sv</td><td>Register bus agent (driver + monitor + sequencer)</td></tr>
+    <tr><td><code>CpmScoreboard</code></td><td>scoreboard/CpmScoreboard.sv</td><td>Packet comparison checker with expected queue</td></tr>
+    <tr><td><code>CpmRefModel</code></td><td>scoreboard/CpmRefModel.sv</td><td>Golden reference model for transformations</td></tr>
+    <tr><td><code>CpmPacketCoverage</code></td><td>coverage/CpmPacketCoverage.sv</td><td>Packet functional coverage collector</td></tr>
+    <tr><td><code>CpmRegCoverage</code></td><td>coverage/CpmRegCoverage.sv</td><td>Register access coverage collector</td></tr>
+</table>
+
+<h4>Tests</h4>
+<table>
+    <tr><th>Test</th><th>File</th><th>Description</th></tr>
+    <tr><td><code>CpmBaseTest</code></td><td>tests/CpmBaseTest.sv</td><td>Common test base class</td></tr>
+    <tr><td><code>CpmMainTest</code></td><td>tests/CpmMainTest.sv</td><td>Full flow with factory override + callback demo</td></tr>
+    <tr><td><code>CpmSmokeTest</code></td><td>tests/CpmSmokeTest.sv</td><td>Quick sanity check</td></tr>
+    <tr><td><code>CpmRalResetTest</code></td><td>tests/CpmRalResetTest.sv</td><td>RAL reset value verification</td></tr>
+</table>
+
+<h4>Mandatory UVM Features Implementation</h4>
+<table>
+    <tr><th>Feature</th><th>Implementation</th></tr>
+    <tr><td>RAL (Register Abstraction Layer)</td><td><code>CpmRegModel</code> + <code>CpmRegAdapter</code> + <code>uvm_reg_predictor</code></td></tr>
+    <tr><td>Virtual Sequence</td><td><code>CpmTopVirtualSeq</code> with 8-step orchestration flow</td></tr>
+    <tr><td>Factory Override</td><td><code>CpmBaseTrafficSeq</code> → <code>CpmCoverageTrafficSeq</code> in <code>CpmMainTest</code></td></tr>
+    <tr><td>Callbacks</td><td><code>CpmBasePacketCb</code> with <code>pre_drive</code>/<code>post_drive</code> hooks</td></tr>
+    <tr><td>Functional Coverage</td><td><code>cg_packet</code> covergroup in <code>CpmPacketCoverage</code></td></tr>
+    <tr><td>SVA Assertions</td><td><code>p_input_stability</code>, <code>p_output_stability</code>, <code>p_bounded_liveness</code></td></tr>
+</table>
+
+<hr>
+
+<!-- PHASE 4 -->
+<h2 class="page-break">Phase 4 - Coverage Plan Development</h2>
+
+<h3>4.1 Packet Coverage (<code>cg_packet</code> in <code>CpmPacketCoverage.sv</code>)</h3>
+
+<table>
+    <tr><th>#</th><th>Name</th><th>Type</th><th>Definition</th></tr>
+    <tr><td>1</td><td><code>cp_mode</code></td><td>Coverpoint</td><td>Bins: <code>mode_pass</code>, <code>mode_xor</code>, <code>mode_add</code>, <code>mode_rot</code></td></tr>
+    <tr><td>2</td><td><code>cp_opcode</code></td><td>Coverpoint</td><td>16 auto-bins for opcodes 0-15</td></tr>
+    <tr><td>3</td><td><code>cp_mode_opcode</code></td><td>Cross</td><td>MODE × OPCODE (64 combinations, target 80%+)</td></tr>
+    <tr><td>4</td><td><code>cp_drop</code></td><td>Coverpoint</td><td>Bins: <code>drop_hit</code> (packet dropped), <code>no_drop</code></td></tr>
+    <tr><td>5</td><td><code>cp_stall</code></td><td>Coverpoint</td><td>Bins: <code>stall_hit</code> (backpressure observed), <code>no_stall</code></td></tr>
+</table>
+
+<h3>4.2 Register Coverage (<code>cg_register</code> in <code>CpmRegCoverage.sv</code>)</h3>
+
+<table>
+    <tr><th>#</th><th>Name</th><th>Type</th><th>Definition</th></tr>
+    <tr><td>1</td><td><code>cp_addr</code></td><td>Coverpoint</td><td>8 bins for register addresses (0x00, 0x04, 0x08, 0x0C, 0x10, 0x14, 0x18, 0x1C)</td></tr>
+    <tr><td>2</td><td><code>cp_op</code></td><td>Coverpoint</td><td>Bins: <code>read</code>, <code>write</code></td></tr>
+    <tr><td>3</td><td><code>cp_addr_op</code></td><td>Cross</td><td>Address × Operation (16 combinations)</td></tr>
+</table>
+
+<h3>4.3 Covergroup Sampling Strategy</h3>
+
+<p>The <code>cg_packet</code> covergroup is sampled each time a packet is observed at the input interface. The sampling function receives four parameters that capture the current state of the packet and system:</p>
+
+<table>
+    <tr><th>Sample Parameter</th><th>Source</th><th>Purpose</th></tr>
+    <tr><td><code>mode</code></td><td>RAL mirror at acceptance</td><td>Captures which transformation mode was active</td></tr>
+    <tr><td><code>opcode</code></td><td>Packet transaction field</td><td>Captures the 4-bit opcode for coverage bins</td></tr>
+    <tr><td><code>drop_event</code></td><td>Drop condition check</td><td>Indicates if this packet was dropped (1) or passed (0)</td></tr>
+    <tr><td><code>stall_event</code></td><td>Interface observation</td><td>Indicates if backpressure was observed (1) or not (0)</td></tr>
+</table>
+
+<h4>Coverage Bin Definitions</h4>
+
+<p><strong>Mode Coverage (<code>cp_mode</code>):</strong> Four explicit bins ensure each transformation mode is exercised at least once during simulation. This is critical for verifying all data path transformations.</p>
+
+<p><strong>Opcode Coverage (<code>cp_opcode</code>):</strong> Sixteen auto-generated bins cover the full range of 4-bit opcode values (0x0 through 0xF). This ensures traffic diversity and validates the drop mechanism across all possible opcodes.</p>
+
+<p><strong>Cross Coverage (<code>cp_mode_opcode</code>):</strong> The cross product of mode and opcode creates 64 combination bins (4 modes × 16 opcodes). The target of 80%+ ensures comprehensive interaction testing between modes and opcodes.</p>
+
+<p><strong>Drop Coverage (<code>cp_drop</code>):</strong> Two bins track whether the drop mechanism was triggered. The <code>drop_hit</code> bin confirms the drop functionality was exercised; <code>no_drop</code> confirms normal packet flow.</p>
+
+<p><strong>Stall Coverage (<code>cp_stall</code>):</strong> Two bins track backpressure scenarios. The <code>stall_hit</code> bin confirms the DUT was tested under backpressure conditions where <code>out_ready</code> was deasserted while <code>out_valid</code> was high.</p>
+
+<hr>
+
+<!-- PHASE 5 -->
+<h2 class="page-break">Phase 5 - Detailed Test Case Design</h2>
+
+<div class="test-case">
+    <h4>Test 1: Basic Transformation & RAL Consistency</h4>
+    <p><strong>Goal:</strong> Verify data transformation and RAL mirror synchronization.</p>
+    <p><strong>Steps:</strong></p>
+    <ol>
+        <li><code>CpmConfigSeq</code>: Write <code>m_mode</code> = XOR, <code>m_params</code> = {ADD_CONST, MASK=0xAAAA}</li>
+        <li>Send <code>CpmPacketTxn</code> with <code>m_payload</code> = 0x5555</li>
+        <li>Wait for output (1 cycle latency for XOR mode)</li>
+        <li><code>CpmScoreboard</code>: Verify output = 0xFFFF (0x5555 XOR 0xAAAA)</li>
+        <li>RAL mirror check: <code>m_reg_model.m_mode.get()</code> matches written value</li>
+    </ol>
+    <p><strong>Pass Criteria:</strong> Output matches expected, RAL mirror is synchronized.</p>
+</div>
+
+<div class="test-case">
+    <h4>Test 2: All Modes Sweep</h4>
+    <p><strong>Goal:</strong> Verify all 4 transformation modes produce correct results.</p>
+    <p><strong>Steps:</strong></p>
+    <ol>
+        <li>For each mode in {PASS, XOR, ADD, ROT}:
+            <ul>
+                <li>Configure via <code>CpmConfigSeq</code></li>
+                <li>Send 10+ packets via <code>CpmBaseTrafficSeq</code></li>
+                <li><code>CpmRefModel</code> predicts expected output</li>
+                <li><code>CpmScoreboard</code> verifies all packets match</li>
+            </ul>
+        </li>
+    </ol>
+    <p><strong>Pass Criteria:</strong> All packets in all modes match expected output.</p>
+</div>
+
+<div class="test-case">
+    <h4>Test 3: Drop Mechanism & Counter Accuracy</h4>
+    <p><strong>Goal:</strong> Verify DROP_CFG functionality and DROPPED_COUNT counter.</p>
+    <p><strong>Steps:</strong></p>
+    <ol>
+        <li>Configure <code>m_drop_cfg</code>: DROP_EN=1, DROP_OPCODE=0x8</li>
+        <li><code>CpmDropSeq</code>: Send packets with <code>m_opcode</code>=0x8 (should drop)</li>
+        <li>Send packets with other opcodes (should pass)</li>
+        <li>Verify dropped packets do not appear at output</li>
+        <li>RAL read <code>m_dropped_count</code>, verify matches actual drop count</li>
+    </ol>
+    <p><strong>Pass Criteria:</strong> Dropped packets not at output, counter accurate.</p>
+</div>
+
+<div class="test-case">
+    <h4>Test 4: Backpressure & Pipeline Recovery</h4>
+    <p><strong>Goal:</strong> Verify <code>out_ready</code> backpressure handling and signal stability.</p>
+    <p><strong>Steps:</strong></p>
+    <ol>
+        <li>Configure MODE = ADD via <code>CpmConfigSeq</code></li>
+        <li><code>CpmStressSeq</code>: Start continuous packet burst</li>
+        <li>Deassert <code>out_ready</code> for 20+ cycles</li>
+        <li>Verify <code>in_ready</code> drops (buffer full condition)</li>
+        <li>Reassert <code>out_ready</code></li>
+        <li>Verify no data loss, correct packet sequence maintained</li>
+        <li>SVA <code>p_output_stability</code> passes (no signal changes during stall)</li>
+    </ol>
+    <p><strong>Pass Criteria:</strong> No data loss, SVA passes, correct ordering.</p>
+</div>
+
+<div class="test-case">
+    <h4>Test 5: Counter Invariant Verification</h4>
+    <p><strong>Goal:</strong> Verify <code>COUNT_IN == COUNT_OUT + DROPPED_COUNT</code> holds.</p>
+    <p><strong>Steps:</strong></p>
+    <ol>
+        <li>Enable drop for specific opcode</li>
+        <li>Send mixed traffic (some dropped, some passed)</li>
+        <li>Poll <code>m_status.m_busy</code> until 0 (pipeline empty)</li>
+        <li>RAL read: <code>m_count_in</code>, <code>m_count_out</code>, <code>m_dropped_count</code></li>
+        <li>Verify invariant: <code>COUNT_IN == COUNT_OUT + DROPPED_COUNT</code></li>
+    </ol>
+    <p><strong>Pass Criteria:</strong> Counter invariant holds after pipeline drain.</p>
+</div>
+
+<div class="test-case mandatory">
+    <h4>Test 6: RAL Reset Verification (MANDATORY - <code>CpmRalResetTest</code>)</h4>
+    <p><strong>Goal:</strong> Verify all registers have correct reset values per specification.</p>
+    <p><strong>Steps:</strong></p>
+    <ol>
+        <li>Apply hardware reset (<code>rst</code> = 1)</li>
+        <li>Execute <code>uvm_reg_hw_reset_seq</code> on <code>m_reg_model</code></li>
+        <li>Sequence reads each register and compares against RAL-defined reset values</li>
+        <li>Verify each register matches specification reset value</li>
+    </ol>
+    <p><strong>Pass Criteria:</strong> All registers match reset values, no UVM_ERROR.</p>
+</div>
+
+<div class="test-case mandatory">
+    <h4>Test 7: Full Virtual Sequence Flow (MANDATORY - <code>CpmMainTest</code>)</h4>
+    <p><strong>Goal:</strong> Demonstrate all mandatory UVM features in a comprehensive test.</p>
+    <p><strong>Steps (CpmTopVirtualSeq 8-step flow):</strong></p>
+    <ol>
+        <li><strong>Reset Wait:</strong> Wait for <code>rst</code> deassert</li>
+        <li><strong>Configure:</strong> <code>CpmConfigSeq</code> programs registers via RAL</li>
+        <li><strong>Traffic:</strong> <code>CpmBaseTrafficSeq</code> sends 200+ packets</li>
+        <li><strong>Reconfigure:</strong> Cycle all 4 modes with traffic per mode</li>
+        <li><strong>Stress:</strong> <code>CpmStressSeq</code> burst traffic with backpressure</li>
+        <li><strong>Drop Test:</strong> <code>CpmDropSeq</code> targeted drop verification</li>
+        <li><strong>Readback:</strong> RAL read all counters</li>
+        <li><strong>End Check:</strong> Verify counter invariant</li>
+    </ol>
+    <p><strong>Mandatory Features Demonstrated:</strong></p>
+    <ul>
+        <li>Factory Override: <code>CpmBaseTrafficSeq::type_id::set_type_override(CpmCoverageTrafficSeq::get_type())</code></li>
+        <li>Callback: <code>CpmPacketStatsCb</code> registered on <code>CpmPacketDriver</code></li>
+    </ul>
+    <p><strong>Pass Criteria:</strong> All 8 steps complete, 0 errors, factory override logged, callback stats printed.</p>
+</div>
+
+<hr>
+
+<!-- PHASE 6 -->
+<h2 class="page-break">Phase 6 - Closure & Reporting Strategy</h2>
+
+<h3>6.1 Key Performance Indicators (KPIs)</h3>
+
+<table>
+    <tr><th>KPI</th><th>Target</th><th>Measurement</th></tr>
+    <tr><td>Test Pass Rate</td><td>100%</td><td>Zero UVM_ERROR or UVM_FATAL in simulation log</td></tr>
+    <tr><td>Scoreboard Mismatches</td><td>0</td><td>All expected vs actual comparisons pass</td></tr>
+    <tr><td>SVA Violations</td><td>0</td><td>All assertions pass throughout simulation</td></tr>
+    <tr><td>Functional Coverage</td><td>All targets met</td><td>Coverage report meets defined targets</td></tr>
+    <tr><td>Code Coverage</td><td>85%+ total</td><td>DUT code coverage report</td></tr>
+</table>
+
+<h3>6.2 Verification Sign-off Criteria</h3>
+
+<h4>Functional Coverage Sign-off</h4>
+<table>
+    <tr><th>Metric</th><th>Target</th><th>Status</th></tr>
+    <tr><td><code>cp_mode</code></td><td>100%</td><td>[ ] Pass</td></tr>
+    <tr><td><code>cp_opcode</code></td><td>90%+</td><td>[ ] Pass</td></tr>
+    <tr><td><code>cp_mode_opcode</code></td><td>80%+</td><td>[ ] Pass</td></tr>
+    <tr><td><code>cp_drop</code></td><td>Hit</td><td>[ ] Pass</td></tr>
+    <tr><td><code>cp_stall</code></td><td>Hit</td><td>[ ] Pass</td></tr>
+</table>
+
+<h4>Code Coverage Sign-off</h4>
+<table>
+    <tr><th>Metric</th><th>Target</th><th>Status</th></tr>
+    <tr><td>Statement Coverage</td><td>95%+</td><td>[ ] Pass</td></tr>
+    <tr><td>Branch Coverage</td><td>90%+</td><td>[ ] Pass</td></tr>
+    <tr><td>Total DUT Coverage</td><td>85%+</td><td>[ ] Pass</td></tr>
+</table>
+
+<h4>Mandatory Features Checklist</h4>
+<table>
+    <tr><th>Feature</th><th>Verification Method</th><th>Status</th></tr>
+    <tr><td>RAL</td><td><code>CpmRalResetTest</code> passes, all registers accessible</td><td>[ ] Complete</td></tr>
+    <tr><td>Virtual Sequence</td><td><code>CpmTopVirtualSeq</code> completes 8-step flow</td><td>[ ] Complete</td></tr>
+    <tr><td>Factory Override</td><td>Log confirms override in <code>CpmMainTest</code></td><td>[ ] Complete</td></tr>
+    <tr><td>Callbacks</td><td><code>CpmBasePacketCb</code> hooks execute, stats printed</td><td>[ ] Complete</td></tr>
+    <tr><td>SVA Assertions</td><td>0 violations for all assertions</td><td>[ ] Complete</td></tr>
+    <tr><td>Functional Coverage</td><td>Report meets all targets</td><td>[ ] Complete</td></tr>
+    <tr><td>Counter Invariant</td><td>Verified via RAL at end of each test</td><td>[ ] Complete</td></tr>
+</table>
+
+<h3>6.3 Deliverables</h3>
+
+<table>
+    <tr><th>Deliverable</th><th>Location</th><th>Description</th></tr>
+    <tr><td>Verification Plan</td><td><code>deliverables/CPM_Verification_Plan.md</code></td><td>This document</td></tr>
+    <tr><td>UVM Testbench</td><td><code>verification/</code></td><td>Complete environment source code</td></tr>
+    <tr><td>Test Suite</td><td><code>tests/</code></td><td><code>CpmSmokeTest</code>, <code>CpmMainTest</code>, <code>CpmRalResetTest</code></td></tr>
+    <tr><td>Coverage Report</td><td><code>coverage/</code></td><td>Functional and code coverage results</td></tr>
+    <tr><td>Bug Reports</td><td><code>tracking/bug_tracker.csv</code></td><td>All discovered issues and resolutions</td></tr>
+    <tr><td>Sign-off Document</td><td><code>docs/SIGNOFF.md</code></td><td>Final verification sign-off</td></tr>
+</table>
+
+<h3>6.4 Risk Assessment & Mitigation</h3>
+
+<table>
+    <tr><th>Risk</th><th>Impact</th><th>Mitigation Strategy</th></tr>
+    <tr><td>Spec ambiguity (ROT_AMT, counter timing)</td><td>Medium</td><td>Document assumptions in bug_tracker, clarify with design team</td></tr>
+    <tr><td>DUT bugs blocking progress</td><td>High</td><td>Track in bug_tracker.csv, prioritize critical issues</td></tr>
+    <tr><td>Coverage gaps</td><td>Medium</td><td>Add directed sequences, use coverage-driven traffic</td></tr>
+    <tr><td>Timing issues in scoreboard</td><td>Medium</td><td>Capture config at acceptance time, drain pipeline before checks</td></tr>
+</table>
+
+<hr>
+
+<p style="text-align: center; margin-top: 40px; color: #666;">
+    <strong>End of Document</strong><br>
+    CPM Verification Plan | Version 1.0<br>
+    Author: Assaf Afriat | Date: 2026-02-01<br><br>
+    <em>This verification plan is written prior to implementation and describes the planned approach, targets, and expected outcomes for the CPM verification project.</em>
+</p>
+
+</body>
+</html>

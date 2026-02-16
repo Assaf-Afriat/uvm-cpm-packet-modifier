@@ -1,0 +1,21 @@
+# Questa / simulation artifacts
+work/
+sim/
+logs/
+coverage/
+regress/logs/
+vsim.wlf
+*.ucdb
+*.wlf
+transcript
+
+# Python
+__pycache__/
+*.pyc
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+

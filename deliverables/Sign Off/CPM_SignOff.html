@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPM Verification Sign-Off Document</title>
+    <style>
+        /* Clean, copy-friendly styling for Word export */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 1in;
+            background: white;
+            color: black;
+        }
+        
+        h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20pt;
+            border-bottom: 2px solid black;
+            padding-bottom: 10pt;
+        }
+        
+        h2 {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-top: 20pt;
+            margin-bottom: 10pt;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5pt;
+        }
+        
+        h3 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin-top: 15pt;
+            margin-bottom: 8pt;
+        }
+        
+        .header-info {
+            margin-bottom: 20pt;
+        }
+        
+        .header-info p {
+            margin: 3pt 0;
+        }
+        
+        .header-info strong {
+            display: inline-block;
+            width: 80px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10pt 0 15pt 0;
+            font-size: 11pt;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 6pt 8pt;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        
+        .status-pass {
+            color: #006400;
+            font-weight: bold;
+        }
+        
+        .status-fixed {
+            color: #006400;
+            font-weight: bold;
+        }
+        
+        p {
+            margin: 8pt 0;
+            text-align: justify;
+        }
+        
+        .summary-box {
+            border: 2px solid black;
+            padding: 15pt;
+            margin: 15pt 0;
+            background-color: #f9f9f9;
+        }
+        
+        .center {
+            text-align: center;
+        }
+        
+        .bold {
+            font-weight: bold;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 20pt 0;
+        }
+        
+        .signature-section {
+            margin-top: 30pt;
+        }
+        
+        .footer {
+            margin-top: 40pt;
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>CPM Verification Sign-Off Document</h1>
+
+<div class="header-info">
+    <p><strong>Project:</strong> Configurable Packet Modifier (CPM) Verification</p>
+    <p><strong>Version:</strong> 1.1</p>
+    <p><strong>Author:</strong> Assaf Afriat</p>
+    <p><strong>Date:</strong> 2026-02-07</p>
+    <p><strong>Status:</strong> <span class="status-pass">SIGNED OFF</span></p>
+</div>
+
+<hr>
+
+<h2>1. Executive Summary</h2>
+
+<p>The CPM (Configurable Packet Modifier) UVM verification environment has been completed and all closure criteria have been met. The design (RTL v1.1) has been verified to function correctly across all 4 operation modes, with comprehensive functional coverage achieved. All previously reported DUT bugs have been fixed and verified.</p>
+
+<hr>
+
+<h2>2. Closure Criteria Checklist</h2>
+
+<h3>2.1 Mandatory Requirements</h3>
+
+<table>
+    <tr>
+        <th>#</th>
+        <th>Criterion</th>
+        <th>Status</th>
+        <th>Evidence</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>All tests pass (no runtime hangs)</td>
+        <td class="status-pass">PASS</td>
+        <td>All tests complete successfully</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Scoreboard reports 0 mismatches</td>
+        <td class="status-pass">PASS</td>
+        <td>485 matched, 0 mismatched</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>All assertions pass (no failures)</td>
+        <td class="status-pass">PASS</td>
+        <td>4/4 assertions (100%) - 0 violations</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Functional coverage targets achieved</td>
+        <td class="status-pass">PASS</td>
+        <td>See coverage section</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>RAL reset sequence passes cleanly</td>
+        <td class="status-pass">PASS</td>
+        <td>CpmRalResetTest PASS</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>End-of-test invariants checked</td>
+        <td class="status-pass">PASS</td>
+        <td>Counter invariant verified via RAL</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>UVM_ERROR count = 0</td>
+        <td class="status-pass">PASS</td>
+        <td>0 errors in simulation</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>Callback mechanism demonstrated</td>
+        <td class="status-pass">PASS</td>
+        <td>CpmPacketStatsCb tracks 505 packets</td>
+    </tr>
+</table>
+
+<h3>2.2 UVM Mechanisms Demonstrated</h3>
+
+<table>
+    <tr>
+        <th>Mechanism</th>
+        <th>Requirement</th>
+        <th>Status</th>
+        <th>Implementation</th>
+    </tr>
+    <tr>
+        <td>RAL</td>
+        <td>Mandatory</td>
+        <td class="status-pass">Implemented</td>
+        <td>CpmRegModel, CpmRegAdapter, uvm_reg_predictor</td>
+    </tr>
+    <tr>
+        <td>Virtual Sequence</td>
+        <td>Mandatory</td>
+        <td class="status-pass">Implemented</td>
+        <td>CpmTopVirtualSeq with full 8-step flow</td>
+    </tr>
+    <tr>
+        <td>Factory Override</td>
+        <td>Mandatory</td>
+        <td class="status-pass">Implemented</td>
+        <td>CpmBaseTrafficSeq → CpmCoverageTrafficSeq</td>
+    </tr>
+    <tr>
+        <td>Callbacks</td>
+        <td>Mandatory</td>
+        <td class="status-pass">Implemented</td>
+        <td>CpmPacketStatsCb with real statistics tracking</td>
+    </tr>
+    <tr>
+        <td>Functional Coverage</td>
+        <td>Mandatory</td>
+        <td class="status-pass">Implemented</td>
+        <td>CpmPacketCoverage, CpmRegCoverage</td>
+    </tr>
+    <tr>
+        <td>SVA Assertions</td>
+        <td>Mandatory</td>
+        <td class="status-pass">Implemented</td>
+        <td>4 assertions + 4 cover properties in CpmStreamIf.sv</td>
+    </tr>
+</table>
+
+<hr>
+
+<h2>3. Test Results</h2>
+
+<h3>3.1 Test Execution Summary</h3>
+
+<table>
+    <tr>
+        <th>Test</th>
+        <th>Execution Time</th>
+        <th>Result</th>
+        <th>Errors</th>
+        <th>Warnings</th>
+    </tr>
+    <tr>
+        <td>CpmSmokeTest</td>
+        <td>~1 sec</td>
+        <td class="status-pass">PASS</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>CpmMainTest</td>
+        <td>~2 sec</td>
+        <td class="status-pass">PASS</td>
+        <td>0</td>
+        <td>1 (expected)</td>
+    </tr>
+    <tr>
+        <td>CpmRalResetTest</td>
+        <td>~1 sec</td>
+        <td class="status-pass">PASS</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+<h3>3.2 Scoreboard Results (CpmMainTest - RTL v1.1)</h3>
+
+<table>
+    <tr>
+        <th>Metric</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>Packets Input</td>
+        <td>505</td>
+    </tr>
+    <tr>
+        <td>Packets Matched</td>
+        <td>485</td>
+    </tr>
+    <tr>
+        <td>Packets Dropped (intentional)</td>
+        <td>20</td>
+    </tr>
+    <tr>
+        <td>Packets Mismatched</td>
+        <td class="bold">0</td>
+    </tr>
+    <tr>
+        <td>Match Rate</td>
+        <td class="bold">100%</td>
+    </tr>
+</table>
+
+<h3>3.3 Callback Statistics (NEW in v1.1)</h3>
+
+<table>
+    <tr>
+        <th>Metric</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>Total Packets Tracked</td>
+        <td>505</td>
+    </tr>
+    <tr>
+        <td>Opcodes Exercised</td>
+        <td>16/16 (100%)</td>
+    </tr>
+    <tr>
+        <td>Payload Range</td>
+        <td>0x0000 - 0xFFFF</td>
+    </tr>
+</table>
+
+<hr>
+
+<h2>4. Coverage Results</h2>
+
+<h3>4.1 Functional Coverage (Mandatory Targets)</h3>
+
+<table>
+    <tr>
+        <th>Coverpoint</th>
+        <th>Target</th>
+        <th>Achieved</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>MODE</td>
+        <td>100%</td>
+        <td class="bold">100.00%</td>
+        <td class="status-pass">MET</td>
+    </tr>
+    <tr>
+        <td>OPCODE</td>
+        <td>90%</td>
+        <td class="bold">100.00%</td>
+        <td class="status-pass">MET</td>
+    </tr>
+    <tr>
+        <td>MODE × OPCODE</td>
+        <td>80%</td>
+        <td class="bold">100.00%</td>
+        <td class="status-pass">MET</td>
+    </tr>
+    <tr>
+        <td>Drop bin</td>
+        <td>Hit once</td>
+        <td class="bold">50%</td>
+        <td class="status-pass">MET</td>
+    </tr>
+    <tr>
+        <td>Stall bin</td>
+        <td>Hit once</td>
+        <td class="bold">50%</td>
+        <td class="status-pass">MET</td>
+    </tr>
+</table>
+
+<h3>4.2 Covergroup Summary</h3>
+
+<table>
+    <tr>
+        <th>Covergroup</th>
+        <th>Coverage</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>cg_packet</td>
+        <td>100.00%</td>
+        <td class="status-pass">MET</td>
+    </tr>
+    <tr>
+        <td>cg_register</td>
+        <td>75.00%</td>
+        <td class="status-pass">MET</td>
+    </tr>
+</table>
+
+<h3>4.3 Code Coverage (DUT)</h3>
+
+<table>
+    <tr>
+        <th>Metric</th>
+        <th>Coverage</th>
+    </tr>
+    <tr>
+        <td>Statements</td>
+        <td>100.00%</td>
+    </tr>
+    <tr>
+        <td>Branches</td>
+        <td>95.55%</td>
+    </tr>
+    <tr>
+        <td>Expressions</td>
+        <td>100.00%</td>
+    </tr>
+    <tr>
+        <td>Conditions</td>
+        <td>88.88%</td>
+    </tr>
+    <tr>
+        <td>Toggles</td>
+        <td>58.62%</td>
+    </tr>
+    <tr>
+        <td class="bold">Total DUT</td>
+        <td class="bold">88.61%</td>
+    </tr>
+</table>
+
+<h3>4.4 Assertion Coverage</h3>
+
+<table>
+    <tr>
+        <th>Metric</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td>Total Assertions</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>Passed</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>Failed</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>Cover Properties</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>Pass Rate</td>
+        <td class="bold">100%</td>
+    </tr>
+</table>
+
+<hr>
+
+<h2>5. Feature Verification</h2>
+
+<h3>5.1 Operation Modes</h3>
+
+<table>
+    <tr>
+        <th>Mode</th>
+        <th>Transformation</th>
+        <th>Latency</th>
+        <th>Verified</th>
+    </tr>
+    <tr>
+        <td>PASS (0)</td>
+        <td>payload unchanged</td>
+        <td>0 cycles</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+    <tr>
+        <td>XOR (1)</td>
+        <td>payload ^ mask</td>
+        <td>1 cycle</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+    <tr>
+        <td>ADD (2)</td>
+        <td>payload + constant</td>
+        <td>2 cycles</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+    <tr>
+        <td>ROT (3)</td>
+        <td>rotate left by 4</td>
+        <td>1 cycle</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+</table>
+
+<h3>5.2 Registers</h3>
+
+<table>
+    <tr>
+        <th>Register</th>
+        <th>Address</th>
+        <th>Reset Value</th>
+        <th>Verified</th>
+    </tr>
+    <tr>
+        <td>CTRL</td>
+        <td>0x00</td>
+        <td>0x00000000</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+    <tr>
+        <td>MODE</td>
+        <td>0x04</td>
+        <td>0x00000000</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+    <tr>
+        <td>PARAMS</td>
+        <td>0x08</td>
+        <td>0x00000000</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+    <tr>
+        <td>DROP_CFG</td>
+        <td>0x0C</td>
+        <td>0x00000000</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+    <tr>
+        <td>STATUS</td>
+        <td>0x10</td>
+        <td>0x00000000</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+    <tr>
+        <td>COUNT_IN</td>
+        <td>0x14</td>
+        <td>0x00000000</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+    <tr>
+        <td>COUNT_OUT</td>
+        <td>0x18</td>
+        <td>0x00000000</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+    <tr>
+        <td>DROPPED_COUNT</td>
+        <td>0x1C</td>
+        <td>0x00000000</td>
+        <td class="status-pass">Yes</td>
+    </tr>
+</table>
+
+<h3>5.3 Protocol Properties</h3>
+
+<table>
+    <tr>
+        <th>Property</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>Input stability under stall</td>
+        <td class="status-pass">Verified (0 violations)</td>
+    </tr>
+    <tr>
+        <td>Output stability under stall</td>
+        <td class="status-pass">Verified (0 violations - RTL v1.1 fixed)</td>
+    </tr>
+    <tr>
+        <td>Bounded liveness</td>
+        <td class="status-pass">Verified (0 violations - drop awareness)</td>
+    </tr>
+    <tr>
+        <td>Counter invariant</td>
+        <td class="status-pass">Verified (RTL v1.1 fixed)</td>
+    </tr>
+</table>
+
+<hr>
+
+<h2>6. Bug Summary</h2>
+
+<h3>6.1 DUT Bugs (RTL v1.1)</h3>
+
+<table>
+    <tr>
+        <th>Bug ID</th>
+        <th>Description</th>
+        <th>Severity</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>DUT-001</td>
+        <td>COUNT_OUT over-count</td>
+        <td>High</td>
+        <td class="status-fixed">FIXED</td>
+    </tr>
+    <tr>
+        <td>DUT-002</td>
+        <td>Output stability violation</td>
+        <td>High</td>
+        <td class="status-fixed">FIXED</td>
+    </tr>
+    <tr>
+        <td>DUT-003</td>
+        <td>ROT_AMT not configurable</td>
+        <td>Medium</td>
+        <td class="status-fixed">Resolved (spec clarified)</td>
+    </tr>
+</table>
+
+<h3>6.2 Testbench Bugs</h3>
+
+<table>
+    <tr>
+        <th>Bug ID</th>
+        <th>Description</th>
+        <th>Severity</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>TB-001</td>
+        <td>VIF config_db collision</td>
+        <td>Critical</td>
+        <td class="status-fixed">Closed</td>
+    </tr>
+    <tr>
+        <td>TB-002</td>
+        <td>Reset wait race</td>
+        <td>High</td>
+        <td class="status-fixed">Closed</td>
+    </tr>
+    <tr>
+        <td>TB-003</td>
+        <td>Zero-time loop</td>
+        <td>High</td>
+        <td class="status-fixed">Closed</td>
+    </tr>
+    <tr>
+        <td>TB-004</td>
+        <td>Ref model config stale</td>
+        <td>Medium</td>
+        <td class="status-fixed">Closed</td>
+    </tr>
+    <tr>
+        <td>TB-005</td>
+        <td>FIFO ordering assumption</td>
+        <td>Medium</td>
+        <td class="status-fixed">Closed</td>
+    </tr>
+    <tr>
+        <td>TB-006</td>
+        <td>RAL model not built</td>
+        <td>Critical</td>
+        <td class="status-fixed">Closed</td>
+    </tr>
+</table>
+
+<div class="summary-box">
+    <p class="center bold">Total Open Bugs: 0</p>
+</div>
+
+<hr>
+
+<h2>7. Spec Compliance (v1.1)</h2>
+
+<h3>7.1 Resolved Items</h3>
+
+<table>
+    <tr>
+        <th>Item</th>
+        <th>Status</th>
+        <th>Notes</th>
+    </tr>
+    <tr>
+        <td>ROT_AMT value</td>
+        <td class="status-pass">Resolved</td>
+        <td>Spec v1.1 confirms fixed at 4 bits</td>
+    </tr>
+    <tr>
+        <td>Counter invariant timing</td>
+        <td class="status-pass">Resolved</td>
+        <td>STATUS.BUSY defines when invariant holds</td>
+    </tr>
+    <tr>
+        <td>SOFT_RST scope</td>
+        <td class="status-pass">Resolved</td>
+        <td>"clears counters and internal state"</td>
+    </tr>
+</table>
+
+<h3>7.2 Resolved Spec Ambiguities (v1.0 → v1.1)</h3>
+
+<table>
+    <tr>
+        <th>Item</th>
+        <th>Original Concern</th>
+        <th>Resolution</th>
+    </tr>
+    <tr>
+        <td>Ordering contradiction</td>
+        <td>Different latencies vs "no reordering"</td>
+        <td class="status-pass">Resolved - RTL maintains FIFO ordering regardless of mode latency</td>
+    </tr>
+    <tr>
+        <td>Counter overflow</td>
+        <td>Undefined 32-bit wrap behavior</td>
+        <td class="status-pass">Resolved - RTL uses standard wrap-around (implementation-defined per spec)</td>
+    </tr>
+    <tr>
+        <td>ENABLE deassertion</td>
+        <td>In-flight packet handling</td>
+        <td class="status-pass">Resolved - RTL flushes pipeline when ENABLE deasserted (implementation-defined)</td>
+    </tr>
+    <tr>
+        <td>in_ready when disabled</td>
+        <td>Value when ENABLE=0</td>
+        <td class="status-pass">Resolved - RTL correctly deasserts in_ready when ENABLE=0</td>
+    </tr>
+</table>
+
+<div class="summary-box">
+    <p class="center bold">All spec ambiguities from v1.0 have been resolved.</p>
+</div>
+
+<hr>
+
+<h2>8. Deliverables Checklist</h2>
+
+<table>
+    <tr>
+        <th>Deliverable</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>UVM Testbench Source Code</td>
+        <td class="status-pass">Complete</td>
+    </tr>
+    <tr>
+        <td>SVA Assertions</td>
+        <td class="status-pass">Complete</td>
+    </tr>
+    <tr>
+        <td>RAL Code</td>
+        <td class="status-pass">Complete</td>
+    </tr>
+    <tr>
+        <td>Verification Plan</td>
+        <td class="status-pass">Complete</td>
+    </tr>
+    <tr>
+        <td>Coverage Report</td>
+        <td class="status-pass">Complete</td>
+    </tr>
+    <tr>
+        <td>Test Results</td>
+        <td class="status-pass">Complete</td>
+    </tr>
+    <tr>
+        <td>Bug Tracker</td>
+        <td class="status-pass">Complete</td>
+    </tr>
+    <tr>
+        <td>Documentation</td>
+        <td class="status-pass">Complete</td>
+    </tr>
+    <tr>
+        <td>Callback Implementation</td>
+        <td class="status-pass">Complete</td>
+    </tr>
+</table>
+
+<hr>
+
+<h2>9. Sign-Off</h2>
+
+<h3>9.1 Verification Engineer</h3>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Date</th>
+        <th>Signature</th>
+    </tr>
+    <tr>
+        <td>Assaf Afriat</td>
+        <td>Verification Engineer</td>
+        <td>2026-02-07</td>
+        <td class="status-pass">Approved</td>
+    </tr>
+</table>
+
+<h3>9.2 Approval</h3>
+
+<p>This document confirms that the CPM verification environment meets all mandatory closure criteria as defined in the CPM Final Project Verification Requirements and Deliverables document.</p>
+
+<div class="summary-box">
+    <p><strong>Verification Status:</strong> <span class="status-pass">COMPLETE</span></p>
+    <p><strong>RTL Version:</strong> v1.1 (all bugs fixed)</p>
+    <p><strong>Spec Version:</strong> v1.1</p>
+</div>
+
+<hr>
+
+<div class="footer">
+    <p><strong>Document End</strong></p>
+    <p>Last Updated: 2026-02-07</p>
+</div>
+
+</body>
+</html>

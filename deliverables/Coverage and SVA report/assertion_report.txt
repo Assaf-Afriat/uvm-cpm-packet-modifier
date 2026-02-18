@@ -1,0 +1,89 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /tb_top/stream_if
+=== Design Unit: work.CpmStreamIf
+=================================================================================
+
+Assertion Coverage:
+    Assertions                       3         3         0   100.00%
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/tb_top/stream_if/assert__p_bounded_liveness
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/interfaces/CpmStreamIf.sv(82)
+                                                        0          1
+/tb_top/stream_if/assert__p_output_stability
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/interfaces/CpmStreamIf.sv(72)
+                                                        0          1
+/tb_top/stream_if/assert__p_input_stability
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/interfaces/CpmStreamIf.sv(62)
+                                                        0          1
+
+=================================================================================
+=== Instance: /CpmTestPkg
+=== Design Unit: work.CpmTestPkg
+=================================================================================
+
+Assertion Coverage:
+    Assertions                       6         6         0   100.00%
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/CpmTestPkg/CpmStressSeq/body/#ublk#181285431#43/immed__46
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmStressSeq.sv(46)
+                                                        0          1
+/CpmTestPkg/CpmDropSeq/body/#ublk#181285431#44/immed__47
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmDropSeq.sv(47)
+                                                        0          1
+/CpmTestPkg/CpmDropSeq/body/#ublk#181285431#52/immed__55
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmDropSeq.sv(55)
+                                                        0          1
+/CpmTestPkg/CpmCoverageTrafficSeq/body/#anonblk#181285431#37#4#/#ublk#181285431#38/immed__41
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmCoverageTrafficSeq.sv(41)
+                                                        0          1
+/CpmTestPkg/CpmCoverageTrafficSeq/body/#anonblk#181285431#48#2#/#ublk#181285431#49/immed__52
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmCoverageTrafficSeq.sv(52)
+                                                        0          1
+/CpmTestPkg/CpmCoverageTrafficSeq/body/#anonblk#181285431#59#4#/#ublk#181285431#60/immed__63
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmCoverageTrafficSeq.sv(63)
+                                                        0          1
+
+
+ASSERTION RESULTS:
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/tb_top/stream_if/assert__p_bounded_liveness
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/interfaces/CpmStreamIf.sv(82)
+                                                        0          1
+/tb_top/stream_if/assert__p_output_stability
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/interfaces/CpmStreamIf.sv(72)
+                                                        0          1
+/tb_top/stream_if/assert__p_input_stability
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/interfaces/CpmStreamIf.sv(62)
+                                                        0          1
+/CpmTestPkg/CpmStressSeq/body/#ublk#181285431#43/immed__46
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmStressSeq.sv(46)
+                                                        0          1
+/CpmTestPkg/CpmDropSeq/body/#ublk#181285431#44/immed__47
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmDropSeq.sv(47)
+                                                        0          1
+/CpmTestPkg/CpmDropSeq/body/#ublk#181285431#52/immed__55
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmDropSeq.sv(55)
+                                                        0          1
+/CpmTestPkg/CpmCoverageTrafficSeq/body/#anonblk#181285431#37#4#/#ublk#181285431#38/immed__41
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmCoverageTrafficSeq.sv(41)
+                                                        0          1
+/CpmTestPkg/CpmCoverageTrafficSeq/body/#anonblk#181285431#48#2#/#ublk#181285431#49/immed__52
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmCoverageTrafficSeq.sv(52)
+                                                        0          1
+/CpmTestPkg/CpmCoverageTrafficSeq/body/#anonblk#181285431#59#4#/#ublk#181285431#60/immed__63
+                     C:/Users/afria/OneDrive/Desktop/Cursor/Verification/Final Project  v01/verification/sequences/packet/CpmCoverageTrafficSeq.sv(63)
+                                                        0          1
+
+Total Coverage By Instance (filtered view): 100.00%
+

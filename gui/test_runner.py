@@ -904,7 +904,7 @@ class PremiumTestRunner:
         
     def open_coverage(self):
         """Open coverage report."""
-        report_path = self.project_root / "coverage" / "modern_report.html"
+        report_path = self.project_root / "deliverables" / "modern_report.html"
         if report_path.exists():
             os.startfile(str(report_path))
         else:
@@ -913,7 +913,7 @@ class PremiumTestRunner:
             
     def open_docs(self):
         """Open documentation."""
-        docs_path = self.project_root / "docs" / "project_demo.html"
+        docs_path = self.project_root / "deliverables" / "project_demo.html"
         if docs_path.exists():
             os.startfile(str(docs_path))
         else:

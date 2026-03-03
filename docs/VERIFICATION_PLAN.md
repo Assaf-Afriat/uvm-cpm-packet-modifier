@@ -149,28 +149,28 @@ The project enforces strict separation of responsibilities:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                              CpmEnv                                      │
+│                              CpmEnv                                     │
 │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────┐  │
 │  │  CpmPacketAgent │  │   CpmRegAgent   │  │      CpmScoreboard      │  │
-│  │  ┌───────────┐  │  │  ┌───────────┐  │  │  ┌─────────────────┐   │  │
-│  │  │  Driver   │  │  │  │  Driver   │  │  │  │  CpmRefModel    │   │  │
-│  │  │  Sequencer│  │  │  │  Sequencer│  │  │  │  Expected Queue │   │  │
-│  │  │  Monitor  │──┼──┼──│  Monitor  │──┼──┼──│  Compare Logic  │   │  │
-│  │  └───────────┘  │  │  └───────────┘  │  │  └─────────────────┘   │  │
+│  │  ┌───────────┐  │  │  ┌───────────┐  │  │  ┌─────────────────┐    │  │
+│  │  │  Driver   │  │  │  │  Driver   │  │  │  │  CpmRefModel    │    │  │
+│  │  │  Sequencer│  │  │  │  Sequencer│  │  │  │  Expected Queue │    │  │
+│  │  │  Monitor  │──┼──┼──│  Monitor  │──┼──┼──│  Compare Logic  │    │  │
+│  │  └───────────┘  │  │  └───────────┘  │  │  └─────────────────┘    │  │
 │  └─────────────────┘  └─────────────────┘  └─────────────────────────┘  │
-│                                                                          │
+│                                                                         │
 │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────┐  │
 │  │ CpmPacketCoverage│ │  CpmRegCoverage │  │      CpmRegModel        │  │
-│  │  - MODE          │  │  - Address      │  │  (RAL)                  │  │
-│  │  - OPCODE        │  │  - Operation    │  │  - Adapter              │  │
-│  │  - Cross         │  │  - Fields       │  │  - Predictor            │  │
-│  │  - Drop/Stall    │  │                 │  │                         │  │
+│  │  - MODE         │  │  - Address      │  │  (RAL)                  │  │
+│  │  - OPCODE       │  │  - Operation    │  │   - Adapter             │  │
+│  │  - Cross        │  │  - Fields       │  │   - Predictor           │  │
+│  │  - Drop/Stall   │  │                 │  │                         │  │
 │  └─────────────────┘  └─────────────────┘  └─────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                          tb_top.sv                                       │
+│                          tb_top.sv                                      │
 │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────┐  │
 │  │   CpmStreamIf   │  │    CpmRegIf     │  │     CPM DUT (v1.1)      │  │
 │  │   (with SVA)    │  │                 │  │      (cpm_rtl.sv)       │  │

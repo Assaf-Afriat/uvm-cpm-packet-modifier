@@ -1,0 +1,23 @@
+Bug ID,Title,Severity,Priority,Status,Category,Reported Date,Reported By,Description,Steps to Reproduce,Expected Behavior,Actual Behavior,Root Cause,Resolution,Notes
+DUT-001,COUNT_OUT Over-Count Bug,High,High,Fixed,DUT RTL,2026-02-02,Assaf Afriat,"COUNT_OUT counter incremented on out_valid instead of out_fire causing multiple counts per packet during backpressure","1. Enable backpressure (out_ready=0)
+2. Assert out_valid
+3. Hold for N cycles
+4. Read COUNT_OUT","COUNT_OUT should increment once per packet (on out_fire)","COUNT_OUT incremented every cycle out_valid was high","Wrong trigger condition: if(out_valid) instead of if(out_fire)","Fixed in RTL v1.1 - line 287-289 now uses if(out_fire)","Confirmed fixed - counter invariant now passes"
+DUT-002,Output Stability Violation During Stall,High,High,Fixed,DUT RTL,2026-02-04,Assaf Afriat,"Output signals changed while out_valid=1 and out_ready=0 (violates spec Section 6.3)","1. Enable backpressure (out_ready=0)
+2. out_valid asserted
+3. Observe out_id/out_opcode/out_payload","Outputs must remain stable while stalled","Output fields changed during stall","s0 slot was being modified during stall","Fixed in RTL v1.1 - s0 slot only updates on out_fire","Confirmed fixed - p_output_stability SVA passes"
+DUT-003,ROT_AMT Not Configurable,Medium,Low,Resolved,Design Decision,2026-02-06,Assaf Afriat,"ROT_AMT hardcoded as localparam instead of register field","1. Check cpm_rtl.sv
+2. Find localparam ROT_AMT = 4","ROT_AMT should be configurable via register","RTL uses constant ROT_AMT=4","Intentional design - spec v1.1 clarifies ROT_AMT is fixed at 4 bits","Spec v1.1 confirms this is intentional design","Not a bug - spec clarified"
+TB-001,Virtual Interface Config DB Collision,Critical,High,Closed,Testbench,2026-02-01,Assaf Afriat,"Multiple virtual interface types in uvm_config_db caused QuestaSim crash","1. Set stream_vif and reg_vif with same field name 'vif'
+2. Run simulation","Both interfaces should be accessible","RPC EOF crash - simulator terminates","QuestaSim bug with parameterized virtual interfaces in config_db","Direct uvm_config_db::set for each interface type","Fixed with standard UVM approach"
+TB-002,Reset Wait Race Condition,High,High,Closed,Testbench,2026-02-01,Assaf Afriat,"Bare wait for reset deassertion caused race conditions","1. Use 'wait(!m_vif.rst)' in driver
+2. Run simulation","Driver waits for reset properly","Potential hang or race condition","Unclocked wait could complete before clock edge","Changed to: do @(posedge m_vif.clk) while (m_vif.rst)","Robust clocked wait pattern"
+TB-003,Zero-Time Loop in Monitor,High,High,Closed,Testbench,2026-02-01,Assaf Afriat,"Forever loop without clock gate caused simulation hang","1. Call monitor_input_packet() without clock edge
+2. Run simulation","Monitor advances time","Simulation hangs - zero delay loop","No clock edge in path through forever loop","Added @(posedge m_vif.clk) before task calls","Clock-gated all forever loops"
+TB-004,Reference Model Config Stale,Medium,Medium,Closed,Testbench,2026-02-01,Assaf Afriat,"Reference model used stale internal config instead of RAL mirrored values","1. Change MODE via RAL
+2. Send packet
+3. Check scoreboard","Prediction uses new MODE","Prediction uses old MODE","Internal m_mode variable not updated","Read config from m_reg_model in predict_output()","Reference model now reads from RAL"
+TB-005,Scoreboard FIFO Ordering Assumption,Medium,Medium,Closed,Testbench,2026-02-01,Assaf Afriat,"Scoreboard assumed FIFO ordering but modes have different latencies","1. Send packets in different modes
+2. Check scoreboard matching","Packets matched correctly","Packets mismatched due to reordering","PASS=0, XOR=1, ADD=2, ROT=1 cycle latencies cause reordering","Match by ID+OPCODE instead of FIFO order","Packets can arrive out of order"
+TB-006,RAL Model Not Built,Critical,High,Closed,Testbench,2026-02-01,Assaf Afriat,"SIGSEGV crash accessing m_reg_model.default_map","1. Create m_reg_model
+2. Access default_map without calling build()","RAL model functional","SIGSEGV - null pointer","m_reg_model.build() not called after creation","Added m_reg_model.build() in CpmEnv.build_phase()","Mandatory call after uvm_reg_block creation"

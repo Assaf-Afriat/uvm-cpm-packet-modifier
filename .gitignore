@@ -1,0 +1,33 @@
+# Questa / simulation artifacts
+work/
+sim/
+logs/
+/coverage/
+!/verification/coverage/
+regress/logs/
+vsim.wlf
+*.ucdb
+*.wlf
+transcript
+modelsim.ini
+
+# Python
+__pycache__/
+*.pyc
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.cursorrules
+
+# Internal / reviewer notes
+comments.md
+comments_verification.md
+MASTER_PLAN.md
+project_demo_comments_NADAV.txt
+tracking/README_NADAV.txt
+
+# Old specs
+spec/old/

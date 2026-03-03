@@ -1,0 +1,17 @@
+Block Name,Register Name,Register Address,Register Width,Register Access,Register Reset Value,Field Name,Field Offset,Field Width,Field Access,Field Reset Value,Register Description
+cpm,CTRL,0x00,32,RW,0x0,ENABLE,0,1,RW,0x0,Enable CPM operation
+cpm,CTRL,0x00,32,RW,0x0,SOFT_RST,1,1,RW,0x0,Self-clearing soft reset
+cpm,CTRL,0x00,32,RW,0x0,RESERVED,2,30,RO,0x0,Reserved bits
+cpm,MODE,0x04,32,RW,0x0,MODE,0,2,RW,0x0,Operation mode: 0=PASS 1=XOR 2=ADD 3=ROT
+cpm,MODE,0x04,32,RW,0x0,RESERVED,2,30,RO,0x0,Reserved bits
+cpm,PARAMS,0x08,32,RW,0x0,MASK,0,16,RW,0x0,XOR mask
+cpm,PARAMS,0x08,32,RW,0x0,ADD_CONST,16,16,RW,0x0,Add constant for ADD mode
+cpm,DROP_CFG,0x0C,32,RW,0x0,DROP_EN,0,1,RW,0x0,Enable drop mechanism
+cpm,DROP_CFG,0x0C,32,RW,0x0,RESERVED0,1,3,RO,0x0,Reserved bits
+cpm,DROP_CFG,0x0C,32,RW,0x0,DROP_OPCODE,4,4,RW,0x0,Opcode value to drop
+cpm,DROP_CFG,0x0C,32,RW,0x0,RESERVED1,8,24,RO,0x0,Reserved bits
+cpm,STATUS,0x10,32,RO,0x0,BUSY,0,1,RO,0x0,Indicates pending transactions in pipeline
+cpm,STATUS,0x10,32,RO,0x0,RESERVED,1,31,RO,0x0,Reserved bits
+cpm,COUNT_IN,0x14,32,RO,0x0,COUNT_IN,0,32,RO,0x0,Total accepted input packets
+cpm,COUNT_OUT,0x18,32,RO,0x0,COUNT_OUT,0,32,RO,0x0,Total output packets
+cpm,DROPPED_COUNT,0x1C,32,RO,0x0,DROPPED_COUNT,0,32,RO,0x0,Total dropped packets

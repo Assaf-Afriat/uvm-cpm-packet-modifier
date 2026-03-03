@@ -1,0 +1,138 @@
+Section,Category,Metric,Value,Notes
+========================================,========================================,========================================,========================================,========================================
+SIMULATION OVERVIEW,,,,,
+,Simulator,Tool,QuestaSim 2025.1_2 (win64),Siemens Questa Sim-64
+,Simulator,UVM Version,UVM-1.1d,
+,Simulator,Seed,1,Deterministic seed
+,Simulator,Verbosity,UVM_DEBUG,Full trace enabled
+,Timing,Start Time,19:33:27,Feb 07 2026
+,Timing,End Time,19:33:29,Feb 07 2026
+,Timing,Wall Clock Elapsed,2 seconds,Fast execution
+,Timing,Simulation Time,374385 ns,~374.4 us total
+,Result,Test Name,CpmMainTest,Full regression test
+,Result,Overall Status,PASS,0 UVM_ERROR / 0 UVM_FATAL
+,Result,QuestaSim Exit Errors,0,All SVA violations fixed in RTL v1.1
+,Result,QuestaSim Exit Warnings,0,Clean simulation
+========================================,========================================,========================================,========================================,========================================
+UVM SEVERITY COUNTS,,,,,
+,UVM Messages,UVM_INFO,3466,Normal informational messages
+,UVM Messages,UVM_WARNING,1,Expected warning (unmatched packets from drops)
+,UVM Messages,UVM_ERROR,0,No verification errors
+,UVM Messages,UVM_FATAL,0,No fatal errors
+========================================,========================================,========================================,========================================,========================================
+UVM MESSAGE ID BREAKDOWN,,,,,
+,Message IDs,CONFIG_SEQ,6,Configuration sequence messages
+,Message IDs,COV,554,Coverage sample messages
+,Message IDs,COV_TRAFFIC_SEQ,14,Coverage-targeted traffic sequence
+,Message IDs,DROP_SEQ,2,Drop test sequence messages
+,Message IDs,DRV,552,Driver transactions (packet + register)
+,Message IDs,MON,1039,Monitor observations (packet + register)
+,Message IDs,PACKET_CB,5,Packet callback statistics (NEW)
+,Message IDs,PHASESEQ,26,UVM phase sequence messages
+,Message IDs,PH_READY_TO_END,13,Phase end notifications
+,Message IDs,Questa UVM,4,Questa UVM library messages
+,Message IDs,REG_PREDICT,47,RAL predictor observations
+,Message IDs,RegModel,47,RAL model messages
+,Message IDs,SCOREBOARD,1006,Scoreboard match/queue messages
+,Message IDs,TB_TOP,3,Testbench top-level messages
+,Message IDs,TEST,7,Test-level messages
+,Message IDs,TEST_DONE,2,End-of-test notifications
+,Message IDs,VIRT_SEQ,33,Virtual sequence step messages
+,Message IDs,uvm_reg_hw_reset_seq,8,RAL hardware reset verification (8 registers)
+,Message IDs,uvm_reg_map,94,RAL register map access messages
+,Message IDs,STRESS_SEQ,2,Stress test sequence messages
+,Message IDs,STARTING_SEQ,1,Sequence start notification
+,Message IDs,RNTST,1,Run test notification
+,Message IDs,PH/TRC/EXE/ALLDROP,1,Phase all-dropped notification
+========================================,========================================,========================================,========================================,========================================
+PACKET STATISTICS,,,,,
+,Packets,Total Driven (Accepted),505,Packets accepted by DUT
+,Packets,Total Output (Matched),485,Packets correctly output by DUT
+,Packets,Intentionally Dropped,20,Packets dropped via DROP_CFG mechanism
+,Packets,Remaining in Queue (EOT),0,Pipeline fully drained
+,Packets,Monitor Unmatched,20,20 dropped packets = expected
+,Packets,Mismatched,0,No data corruption detected
+,Packets,Lost to Soft Reset,0,No packets lost to reset
+,Accounting,505 = 485 + 20,VERIFIED,Input = Output + Dropped
+========================================,========================================,========================================,========================================,========================================
+CALLBACK STATISTICS (NEW),,,,,
+,Packet Callback,Total Packets Tracked,505,All packets tracked by CpmPacketStatsCb
+,Packet Callback,Opcodes Used,16/16,100% opcode coverage via callback
+,Packet Callback,Payload Range,0x0000 - 0xFFFF,Full 16-bit range exercised
+,Packet Callback,Duration,465000ns - 169295000ns,Callback recorded timing
+========================================,========================================,========================================,========================================,========================================
+REGISTER STATISTICS,,,,,
+,Register Bus,Total Register Ops,47,R=34 + W=13
+,Register Bus,Register Reads,34,Including RAL readback and reset checks
+,Register Bus,Register Writes,13,Mode/Params/DropCfg/Ctrl configuration
+,RAL Verification,HW Reset Registers Checked,8,All 8 registers verified at reset
+,RAL Verification,RAL Predictor Observations,47,All register ops observed by predictor
+========================================,========================================,========================================,========================================,========================================
+COUNTER INVARIANT CHECKS,,,,,
+,Check (After soft reset drain),Scoreboard Local,OK,COUNT_IN(40) == COUNT_OUT(40) + DROPPED(0)
+,Check (End of test),RAL Readback,PASS,COUNT_IN(40) == COUNT_OUT(40) + DROPPED_COUNT(0)
+,Summary,Local Invariant,ALL OK,Counter invariant verified (RTL v1.1 fixed)
+,Summary,RAL Counter Invariant,ALL OK,No more mismatches - RTL bug fixed
+========================================,========================================,========================================,========================================,========================================
+FUNCTIONAL COVERAGE,,,,,
+,Packet Coverage,MODE,100.00%,All 4 modes exercised
+,Packet Coverage,OPCODE,100.00%,All 16 opcodes exercised
+,Packet Coverage,MODE x OPCODE Cross,100.00%,All 64 combinations hit
+,Packet Coverage,DROP,50.00%,Drop enabled/disabled tested
+,Packet Coverage,STALL (Backpressure),50.00%,Stall scenarios tested
+,Packet Coverage,Total Samples,505,
+,Register Coverage,ADDR,100.00%,All register addresses accessed
+,Register Coverage,OP (R/W),100.00%,Both read and write ops exercised
+,Register Coverage,ADDR x OP Cross,75.00%,Not all addr x R/W combinations hit
+,Register Coverage,Total Samples,47,R=34 W=13
+========================================,========================================,========================================,========================================,========================================
+SVA (ASSERTION) RESULTS,,,,,
+,SVA,p_input_stability,0 violations,Input signals stable during stall - PASS
+,SVA,p_output_stability,0 violations,Output signals stable during stall - PASS (RTL v1.1 fixed)
+,SVA,p_bounded_liveness,0 violations,Packets output within latency - PASS (drop awareness works)
+,SVA,Total QuestaSim Errors,0,ALL ASSERTIONS PASS
+,SVA Analysis,Previous Stability Violations,FIXED,RTL v1.1 fixed output stability bug
+,SVA Analysis,Previous Liveness Violations,FIXED,SVA disable iff for drops working correctly
+========================================,========================================,========================================,========================================,========================================
+WARNING BREAKDOWN (1 total),,,,,
+,Warning Source,Monitor Unmatched Packets,1,20 unmatched = 20 dropped packets - expected behavior
+,Warning Total,,1,Clean simulation with expected warning only
+========================================,========================================,========================================,========================================,========================================
+DUT BUGS STATUS (RTL v1.1),,,,,
+,Bug #1,Output Instability During Stall,FIXED,No more SVA violations in RTL v1.1
+,Bug #2,Counter Register Over-Count,FIXED,COUNT_OUT now increments on out_fire (not out_valid)
+,Bug #3,ROT_AMT Not Configurable,RESOLVED,Spec v1.1 clarifies ROT_AMT is intentionally fixed at 4
+========================================,========================================,========================================,========================================,========================================
+SOFT RESET ANALYSIS,,,,,
+,Soft Reset,Resets Triggered,1,Single soft reset via CTRL.SOFT_RST
+,Soft Reset,Packets Sent After Reset,50,Post-reset traffic to verify recovery
+,Soft Reset,Packets Lost to Reset,0,No packets lost - proper drain before reset
+,Soft Reset,Counters After Reset,Zeroed,All DUT counters cleared as expected per spec
+,Soft Reset,Pipeline After Reset,Fully drained,Pipeline empty before soft reset triggered
+========================================,========================================,========================================,========================================,========================================
+SCOREBOARD FINAL SUMMARY,,,,,
+,Scoreboard,Total Input Tracked,505,
+,Scoreboard,Total Output Matched,485,
+,Scoreboard,Total Dropped,20,Intentional via DROP_CFG
+,Scoreboard,Mismatched Packets,0,Zero data corruption
+,Scoreboard,Soft Resets Handled,1,
+,Scoreboard,Internal Counters (post-reset),IN=40 OUT=40 DROP=0,Pipeline fully drained at EOT
+,Scoreboard,Data Integrity,PASS,All 485 output packets matched expected transformations
+========================================,========================================,========================================,========================================,========================================
+IMPROVEMENTS FROM PREVIOUS RUN,,,,,
+,Fix,RTL COUNT_OUT Bug,FIXED,Now increments on out_fire instead of out_valid
+,Fix,RTL Output Stability Bug,FIXED,Outputs now stable during backpressure
+,Fix,SVA Drop Awareness,WORKING,p_bounded_liveness disabled when drop mode active
+,Fix,Counter Invariant BUSY Wait,WORKING,Now waits for BUSY=0 before checking invariant
+,Improvement,UVM_WARNING Count,1 (was 20),95% reduction in warnings
+,Improvement,QuestaSim Errors,0 (was 40),100% reduction - all assertions pass
+,New Feature,Packet Statistics Callback,WORKING,CpmPacketStatsCb tracks all packet metrics
+========================================,========================================,========================================,========================================,========================================
+CONCLUSION,,,,,
+,Verdict,Functional Correctness,PASS,All packet transformations correct across all 4 modes
+,Verdict,Data Integrity,PASS,0 mismatches out of 485 checked packets
+,Verdict,Coverage Goals,MET,MODE/OPCODE/CROSS=100%
+,Verdict,DUT Bugs,ALL FIXED,RTL v1.1 addresses all reported bugs
+,Verdict,SVA Effectiveness,HIGH,All 4 assertions pass - no violations
+,Verdict,Callback Mechanism,WORKING,CpmPacketStatsCb demonstrates mandatory callback feature
+,Verdict,Overall Assessment,PASS,Clean simulation - verification environment complete

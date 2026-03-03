@@ -135,7 +135,6 @@ See [FILE_STRUCTURE.md](FILE_STRUCTURE.md) for complete file listing.
 - [USER_GUIDE.md](docs/USER_GUIDE.md) - User guide with quick start
 
 ### Project Tracking
-- [MASTER_PLAN.md](MASTER_PLAN.md) - Master verification plan with progress tracking
 - [SPEC_REVIEW_SUMMARY.md](docs/SPEC_REVIEW_SUMMARY.md) - Specification review summary
 - [spec/](spec/) - Design specification documents
 

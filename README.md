@@ -129,21 +129,15 @@ See [FILE_STRUCTURE.md](FILE_STRUCTURE.md) for complete file listing.
 ## Documentation
 
 ### Core Documents
-- [VERIFICATION_PLAN.md](VERIFICATION_PLAN.md) - Comprehensive verification plan
-- [ARCHITECTURE.md](ARCHITECTURE.md) - Verification architecture with component diagrams
-- [TEST_SUITE.md](TEST_SUITE.md) - Test suite documentation
-- [USER_GUIDE.md](USER_GUIDE.md) - User guide with quick start
-- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - Troubleshooting guide
-- [SIGNOFF.md](SIGNOFF.md) - Verification sign-off document
-- [BUG_REPORT.md](BUG_REPORT.md) - Bug report summary (0 DUT bugs found)
+- [VERIFICATION_PLAN.md](docs/VERIFICATION_PLAN.md) - Comprehensive verification plan
+- [ARCHITECTURE.md](docs/ARCHITECTURE.md) - Verification architecture with component diagrams
+- [SIGNOFF.md](docs/SIGNOFF.md) - Verification sign-off document
+- [USER_GUIDE.md](docs/USER_GUIDE.md) - User guide with quick start
 
 ### Project Tracking
 - [MASTER_PLAN.md](MASTER_PLAN.md) - Master verification plan with progress tracking
-- [FILE_STRUCTURE.md](FILE_STRUCTURE.md) - Complete file structure (41 SV files)
-- [PHASE1_STATUS.md](PHASE1_STATUS.md) - Phase 1 implementation status
-- [PHASE11_STATUS.md](PHASE11_STATUS.md) - Phase 11 completion status (tests & coverage)
-- [SPEC_REVIEW_SUMMARY.md](SPEC_REVIEW_SUMMARY.md) - Specification review summary
-- [Spec/](Spec/) - Design specification documents
+- [SPEC_REVIEW_SUMMARY.md](docs/SPEC_REVIEW_SUMMARY.md) - Specification review summary
+- [spec/](spec/) - Design specification documents
 
 ## Tracking
 

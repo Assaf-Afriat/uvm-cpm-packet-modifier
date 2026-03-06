@@ -5,7 +5,7 @@
 
 ## ▶ Live Project Demo
 🔗 Interactive HTML demo:
-https://assaf-afriat.github.io/uvm-cpm-packet-modifier/deliverables/project_demo.html
+https://assaf-afriat.github.io/uvm-cpm-packet-modifier/deliverables/project_demo_light.html
 
 ## Project Overview
 
